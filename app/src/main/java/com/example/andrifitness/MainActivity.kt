@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.navigation.NavController
@@ -34,89 +35,19 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Layout(navController = navController)
+                    WorkoutLayout(navController = navController)
                 }
             }
         }
     }
 }
 
-@Composable
-fun Layout(navController: NavController) {
-    val constraints = ConstraintSet { 
-        val topButtons = createRefFor("topButtons")
-        val pageName = createRefFor("pageName")
-        val bottomButtons = createRefFor("bottomButtons")
-
-        constrain(topButtons) {
-            top.linkTo(parent.top)
-        }
-        constrain(pageName) {
-            top.linkTo(topButtons.bottom)
-        }
-        constrain(bottomButtons) {
-            top.linkTo(pageName.bottom)
-        }
-    }
-    ConstraintLayout(
-        constraints, modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black)
-            .padding(10.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.05f)
-                .layoutId("topButtons"),
-            horizontalArrangement = Arrangement.End
-        ) {
-            Text(
-                text = "Icon1",
-                color = Color.White,
-            )
-            Text(
-                text = "Icon2",
-                color = Color.White
-            )
-            Text(
-                text = "Icon3",
-                color = Color.White
-            )
-        }
-        Row (
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.9f)
-                .layoutId("pageName"),
-            horizontalArrangement = Arrangement.Start
-        ) {
-            Text(text = "Workouts", color = Color.White)
-        }
-        Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.05f)
-                    .layoutId("bottomButtons"),
-        horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-        Text(text = "workouts", color = Color.White)
-        Text(text = "Exercises", color = Color.White)
-        Text(text = "Logs", color = Color.White)
-        Text(text = "Measurements", color = Color.White)
-        Text(text = "Settings", color = Color.White)
-        Button(onClick = { navController.navigate(Screen.WorkoutCreationScreen.route) }) {
-            
-        }
-    }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     AndriFitnessTheme {
         val navController = rememberNavController()
-        Layout(navController = navController)
+        WorkoutLayout(navController = navController)
     }
 }
