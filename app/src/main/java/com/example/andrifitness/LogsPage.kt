@@ -5,5 +5,5 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun LogsLayout(navController: NavHostController) {
-
+    BottomButtons(navController)
 }

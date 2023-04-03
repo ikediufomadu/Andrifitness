@@ -5,5 +5,5 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun ExercisesLayout(navController: NavHostController) {
-
+    BottomButtons(navController)
 }

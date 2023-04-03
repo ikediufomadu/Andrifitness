@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun buttonButtons(navController: NavController) {
+fun BottomButtons(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

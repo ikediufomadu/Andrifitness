@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.navigation.NavController
@@ -76,6 +75,6 @@ fun WorkoutLayout(navController: NavController) {
         ) {
             Text(text = "Workouts", color = Color.White)
         }
-        buttonButtons(navController)
+        BottomButtons(navController)
     }
 }
