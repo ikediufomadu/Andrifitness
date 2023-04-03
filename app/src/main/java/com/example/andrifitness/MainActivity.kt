@@ -33,6 +33,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     AndriFitnessTheme {
-        Navigation()
+        Surface(color = MaterialTheme.colors.background) {
+            Navigation()
+        }
     }
-}
+    }
