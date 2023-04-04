@@ -54,6 +54,7 @@ fun WorkoutLayout(navController: NavController) {
                     color = Color.White
                 )
             }
+            Spacer(modifier = Modifier.width(16.dp))
             Button(
                 onClick = { navController.navigate(ApplicationScreens.WorkoutCreationApplicationScreen.route)},
                 modifier = Modifier

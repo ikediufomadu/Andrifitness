@@ -8,4 +8,5 @@ sealed class ApplicationScreens(val route: String) {
     object LogsApplicationScreen : ApplicationScreens(route = "LogsScreen")
     object MeasurementsApplicationScreen : ApplicationScreens(route = "MeasurementsScreen")
     object SettingsApplicationScreen : ApplicationScreens(route = "SettingsScreen")
+    object NewWorkoutScreen : ApplicationScreens(route = "NewWorkoutScreen")
 }
