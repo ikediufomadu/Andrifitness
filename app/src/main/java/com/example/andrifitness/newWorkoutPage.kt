@@ -1,5 +1,6 @@
 package com.example.andrifitness
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -8,10 +9,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.navigation.NavHostController
+
 
 @Composable
 fun NewWorkoutLayout(navController: NavHostController) {
@@ -19,6 +22,7 @@ fun NewWorkoutLayout(navController: NavHostController) {
     var selectedDay by remember { mutableStateOf("") }
     var workoutNotes by remember { mutableStateOf("") }
     var showDialog by remember { mutableStateOf(false) }
+    var createCard by remember { mutableStateOf(false) }
 
     val constraints = ConstraintSet {
         val topButtons = createRefFor("topButtons")
@@ -61,9 +65,7 @@ fun NewWorkoutLayout(navController: NavHostController) {
                 onClick = {
                     // Passes parameters user added to store new workout in a data structure
                     if (workoutName.isNotEmpty() && selectedDay.isNotEmpty()) {
-                        // Function call to a method that takes top level variables then creates a ui with all those parameters
-                        // Function then sends created UI back to the previous screen
-                        navController.navigate(ApplicationScreens.WorkoutCreationApplicationScreen.route)
+                        createCard = true
                     }
                     else {
                         showDialog = true
@@ -111,7 +113,10 @@ fun NewWorkoutLayout(navController: NavHostController) {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     days.forEach { day ->
-                        DropdownMenuItem(onClick = { selectedDay = day }) {
+                        DropdownMenuItem(onClick = {
+                            selectedDay = day
+                            expanded = false}
+                        ) {
                             Text(text = day)
                         }
                     }
@@ -142,6 +147,27 @@ fun NewWorkoutLayout(navController: NavHostController) {
                     }
                 )
             }
+            if (createCard) {
+                createCard = false
+                BuildCard(title = workoutName, day = selectedDay, notes = workoutNotes)
+                navController.navigate(ApplicationScreens.WorkoutCreationApplicationScreen.route)
+            }
         }
     }
+}
+data class CardData(
+    val title: String,
+    val day: String,
+    val notes: String
+)
+
+val CardList = mutableListOf<CardData>()
+@Composable
+fun AddCardToList(cardData: CardData) {
+    CardList.add(cardData)
+}
+@Composable
+fun BuildCard(title: String, day: String, notes: String = "") {
+    val card = CardData (title = title, day = day, notes = notes)
+    AddCardToList(cardData = card)
 }

@@ -9,4 +9,5 @@ sealed class ApplicationScreens(val route: String) {
     object MeasurementsApplicationScreen : ApplicationScreens(route = "MeasurementsScreen")
     object SettingsApplicationScreen : ApplicationScreens(route = "SettingsScreen")
     object NewWorkoutScreen : ApplicationScreens(route = "NewWorkoutScreen")
+    object PreDesignedWorkoutScreen : ApplicationScreens(route = "PreDesignedWorkoutScreen")
 }

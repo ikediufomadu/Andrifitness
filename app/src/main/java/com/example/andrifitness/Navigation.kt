@@ -1,5 +1,6 @@
 package com.example.andrifitness
 
+import PreDesignedWorkoutLayout
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,9 +15,6 @@ fun Navigation() {
         }
         composable(route = ApplicationScreens.WorkoutCreationApplicationScreen.route) {
             WorkoutCreationLayout(navController = navController)
-        }
-        composable(route = ApplicationScreens.ArchivedWorkoutApplicationScreen.route) {
-            ArchivedWorkoutLayout(navController = navController)
         }
         composable(route = ApplicationScreens.ExercisesApplicationScreen.route) {
             ExercisesLayout(navController = navController)
@@ -33,9 +31,11 @@ fun Navigation() {
         composable(route = ApplicationScreens.NewWorkoutScreen.route) {
             NewWorkoutLayout(navController = navController)
         }
+        composable(route = ApplicationScreens.PreDesignedWorkoutScreen.route) {
+            PreDesignedWorkoutLayout(navController = navController)
+        }
     }
 }
-
 
 
 

@@ -3,6 +3,7 @@ package com.example.andrifitness
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,6 +19,7 @@ fun WorkoutLayout(navController: NavController) {
     val constraints = ConstraintSet {
         val topButtons = createRefFor("topButtons")
         val pageName = createRefFor("pageName")
+        val workouts = createRefFor("workouts")
         val bottomButtons = createRefFor("bottomButtons")
 
         constrain(topButtons) {
@@ -26,8 +28,11 @@ fun WorkoutLayout(navController: NavController) {
         constrain(pageName) {
             top.linkTo(topButtons.bottom)
         }
-        constrain(bottomButtons) {
+        constrain(workouts) {
             top.linkTo(pageName.bottom)
+        }
+        constrain(bottomButtons) {
+            top.linkTo(workouts.bottom)
         }
     }
     ConstraintLayout(
@@ -44,37 +49,55 @@ fun WorkoutLayout(navController: NavController) {
             horizontalArrangement = Arrangement.End
         ) {
             Button(
-                onClick = { navController.navigate(ApplicationScreens.ArchivedWorkoutApplicationScreen.route)},
+                onClick = { navController.navigate(ApplicationScreens.PreDesignedWorkoutScreen.route)},
                 modifier = Modifier
-                    .requiredHeight(40.dp)
-                    .requiredWidth(90.dp)
+                    .requiredHeight(WButtonRequiredHeight)
+                    .requiredWidth(WButtonRequiredWidth),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = WButtonBackgroundColor,
+                    contentColor = WButtonContentColor
+                )
             ) {
                 Text(
-                    text = "Archive",
-                    color = Color.White
+                    text = "PreMade",
+                    fontSize = WButtonFontSizes
                 )
             }
             Spacer(modifier = Modifier.width(16.dp))
             Button(
                 onClick = { navController.navigate(ApplicationScreens.WorkoutCreationApplicationScreen.route)},
                 modifier = Modifier
-                    .requiredHeight(40.dp)
-                    .requiredWidth(90.dp)
+                    .requiredHeight(WButtonRequiredHeight)
+                    .requiredWidth(WButtonRequiredWidth),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = WButtonBackgroundColor,
+                    contentColor = WButtonContentColor
+                )
             ) {
                 Text(
                     text = "Edit",
-                    color = Color.White
+                    fontSize = WButtonFontSizes
                 )
             }
         }
         Row (
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.9f)
+                .fillMaxHeight(0.05f)
                 .layoutId("pageName"),
             horizontalArrangement = Arrangement.Start
         ) {
-            Text(text = "Workouts", color = Color.White)
+            Text(text = "Workouts",
+                fontSize = WButtonFontSizes
+            )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(.85f)
+                .layoutId("workouts")
+        ) {
+            DisplayCards()
         }
         BottomButtons(navController)
     }
