@@ -72,6 +72,7 @@ fun MeasurementsLayout(navController: NavHostController) {
                     Text(text = "Muscle Mass")
                 }
             }
+            Spacer(modifier = Modifier.height(20.dp))
             BottomButtons(navController)
         }
 
