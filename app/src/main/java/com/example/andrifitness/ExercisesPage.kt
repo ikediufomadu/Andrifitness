@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import kotlin.math.E
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ExercisesLayout(navController: NavHostController) {
     var selectedCategory by remember { mutableStateOf(ExerciseCategory.UPPER_BODY) }
