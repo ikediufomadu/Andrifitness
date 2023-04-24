@@ -2,6 +2,7 @@ package com.example.andrifitness
 
 import PreDesignedWorkoutLayout
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -23,7 +24,8 @@ fun Navigation() {
             LogsLayout(navController = navController)
         }
         composable(route = ApplicationScreens.MeasurementsApplicationScreen.route) {
-            MeasurementsLayout(navController = navController)
+            val viewModel = viewModel<MeasurementViewModel>()
+            MeasurementsLayout(navController = navController, viewModel = viewModel)
         }
         composable(route = ApplicationScreens.SettingsApplicationScreen.route) {
             SettingsLayout(navController = navController)
@@ -33,6 +35,13 @@ fun Navigation() {
         }
         composable(route = ApplicationScreens.PreDesignedWorkoutScreen.route) {
             PreDesignedWorkoutLayout(navController = navController)
+        }
+        composable(route =ApplicationScreens.UserProfileScreen.route){
+            UserProfile(navController = navController)
+        }
+        composable(route = ApplicationScreens.MeasuremntHistoryScreen.route){
+            val viewModel = viewModel<MeasurementViewModel>()
+            MeasurementHistory(navController = navController, viewModel = viewModel)
         }
     }
 }
