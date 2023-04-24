@@ -154,13 +154,10 @@ fun ExerciseButton(category: ExerciseCategory, navController: NavHostController)
             Exercise("Around the Worlds", "5 each direction")
         )
     }
-    
-    val selectedExercises = remember { mutableStateListOf<Exercise>() }
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
     ) {
         exercises.forEach { exercise ->
             Row(
@@ -168,19 +165,10 @@ fun ExerciseButton(category: ExerciseCategory, navController: NavHostController)
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
-            ) {
-                Text(text = exercise.name, color = Color.White)
-                Column(
-                    horizontalAlignment = Alignment.End
-                ) {
+            ){
+                    Text(text = exercise.name, color = Color.White)
                     Text(text = exercise.description, color = Color.White)
-                    Button(
-                        onClick = { selectedExercises.add(exercise) },
-                        modifier = Modifier.padding(top = 4.dp),
-                    ) {
-                      Text(text = "Add to workout")
-                   }
-                }
+
             }
             Divider(color = Color.White)
         }
