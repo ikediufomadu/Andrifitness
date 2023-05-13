@@ -25,9 +25,6 @@ fun Navigation() {
         composable(route = ApplicationScreens.MeasurementsApplicationScreen.route) {
             MeasurementsLayout(navController = navController)
         }
-        composable(route = ApplicationScreens.SettingsApplicationScreen.route) {
-            SettingsLayout(navController = navController)
-        }
         composable(route = ApplicationScreens.NewWorkoutScreen.route) {
             NewWorkoutLayout(navController = navController)
         }

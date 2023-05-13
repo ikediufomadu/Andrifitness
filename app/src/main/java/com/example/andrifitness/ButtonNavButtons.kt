@@ -5,6 +5,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.unit.dp
@@ -15,9 +16,10 @@ fun BottomButtons(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.05f)
+            .fillMaxHeight(0.10f)
             .layoutId("bottomButtons"),
-        horizontalArrangement = Arrangement.SpaceEvenly
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Button(
             onClick = { navController.navigate(ApplicationScreens.WorkoutApplicationScreen.route)},
@@ -66,18 +68,6 @@ fun BottomButtons(navController: NavController) {
             )
         ) {
             Text(text = "Measurements", fontSize = ButtonFontSizes)
-        }
-        Button(
-            onClick = { navController.navigate(ApplicationScreens.SettingsApplicationScreen.route)},
-            modifier = Modifier
-                .requiredHeight(ButtonRequiredHeight)
-                .requiredWidth(ButtonRequiredWidth),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = ButtonBackgroundColor,
-                contentColor = ButtonContentColor
-            )
-        ) {
-            Text(text = "Settings", fontSize = ButtonFontSizes)
         }
     }
 }

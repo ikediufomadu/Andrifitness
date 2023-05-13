@@ -20,3 +20,7 @@ val WButtonContentColor = Color.White
 val WButtonFontSizes = 10.sp
 val WButtonRequiredHeight = 40.dp
 val WButtonRequiredWidth = 90.dp
+
+// Workout page text settings
+val WTextSize = 20.sp
+val WTextColor = Color.White
