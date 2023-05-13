@@ -60,7 +60,8 @@ fun WorkoutLayout(navController: NavController) {
             ) {
                 Text(
                     text = "PreMade",
-                    fontSize = WButtonFontSizes
+                    fontSize = WButtonFontSizes,
+                    color = WButtonContentColor
                 )
             }
             Spacer(modifier = Modifier.width(16.dp))
@@ -76,7 +77,8 @@ fun WorkoutLayout(navController: NavController) {
             ) {
                 Text(
                     text = "Edit",
-                    fontSize = WButtonFontSizes
+                    fontSize = WButtonFontSizes,
+                    color = WButtonContentColor
                 )
             }
         }
@@ -88,16 +90,17 @@ fun WorkoutLayout(navController: NavController) {
             horizontalArrangement = Arrangement.Start
         ) {
             Text(text = "Workouts",
-                fontSize = WButtonFontSizes
+                fontSize = WTextSize,
+                color = WTextColor
             )
         }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(.85f)
+                .fillMaxHeight(.80f)
                 .layoutId("workouts")
         ) {
-            DisplayCards()
+            DisplayCards(navController)
         }
         BottomButtons(navController)
     }
