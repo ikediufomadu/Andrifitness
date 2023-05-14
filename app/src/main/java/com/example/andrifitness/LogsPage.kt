@@ -54,22 +54,6 @@ fun LogsPage(navController: NavController) {
                 .layoutId("topButtons"),
             horizontalArrangement = Arrangement.End
         ) {
-//            Button(
-//                onClick = { navController.navigate(ApplicationScreens.PreDesignedWorkoutScreen.route)},
-//                modifier = Modifier
-//                    .requiredHeight(WButtonRequiredHeight)
-//                    .requiredWidth(WButtonRequiredWidth),
-//                colors = ButtonDefaults.buttonColors(
-//                    backgroundColor = WButtonBackgroundColor,
-//                    contentColor = WButtonContentColor
-//                )
-//            ) {
-//                Text(
-//                    text = "PreMade",
-//                    fontSize = WButtonFontSizes,
-//                    color = WButtonContentColor
-//                )
-//            }
             Spacer(modifier = Modifier.width(16.dp))
             Button(
                 onClick = { navController.navigate(ApplicationScreens.LogsCreationApplicationScreen.route)},
