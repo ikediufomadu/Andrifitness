@@ -1,8 +1,6 @@
 package com.example.andrifitness
 
-import android.net.Uri
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -10,16 +8,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.navigation.NavHostController
-import kotlin.math.round
 
 
 @Composable
-fun NewWorkoutLayout(navController: NavHostController) {
+fun NewLogsPage(navController: NavHostController) {
     var workoutName by remember { mutableStateOf("") }
     var selectedDay by remember { mutableStateOf("") }
     var workoutNotes by remember { mutableStateOf("") }
@@ -28,7 +24,7 @@ fun NewWorkoutLayout(navController: NavHostController) {
 
     val constraints = ConstraintSet {
         val topButtons = createRefFor("topButtons")
-        val newWorkoutInfo = createRefFor("newWorkoutInfo")
+        val newWorkoutInfo = createRefFor("newLogsInfo")
 
         constrain(topButtons) {
             top.linkTo(parent.top)
@@ -53,7 +49,7 @@ fun NewWorkoutLayout(navController: NavHostController) {
         ) {
             Button(
                 onClick = {
-                    navController.navigate(ApplicationScreens.WorkoutCreationApplicationScreen.route)
+                    navController.navigate(ApplicationScreens.LogsCreationApplicationScreen.route)
                 },
                 modifier = Modifier
                     .requiredHeight(WButtonRequiredHeight)
@@ -70,7 +66,7 @@ fun NewWorkoutLayout(navController: NavHostController) {
                 )
             }
             Text(
-                text = "New Workout",
+                text = "New Log",
                 color = Color.White
             )
             Button(
@@ -172,24 +168,24 @@ fun NewWorkoutLayout(navController: NavHostController) {
             if (createCard) {
                 createCard = false
                 BuildCard(title = workoutName, day = selectedDay, notes = workoutNotes)
-                navController.navigate(ApplicationScreens.WorkoutCreationApplicationScreen.route)
+                navController.navigate(ApplicationScreens.LogsCreationApplicationScreen.route)
             }
         }
     }
 }
-data class CardData(
+data class CardDataLog(
     val title: String,
     val day: String,
     val notes: String
 )
 
-val CardList = mutableListOf<CardData>()
+val CardListLog = mutableListOf<CardDataLog>()
 @Composable
-fun AddCardToList(cardData: CardData) {
-    CardList.add(cardData)
+fun AddCardToListLog(cardDataLog: CardDataLog) {
+    CardListLog.add(cardDataLog)
 }
 @Composable
-fun BuildCard(title: String, day: String, notes: String = "") {
-    val card = CardData (title = title, day = day, notes = notes)
-    AddCardToList(cardData = card)
+fun BuildCardLog(title: String, day: String, notes: String = "") {
+    val card = CardDataLog (title = title, day = day, notes = notes)
+    AddCardToListLog(cardDataLog = card)
 }

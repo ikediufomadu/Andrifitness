@@ -54,7 +54,7 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
 
         constraints, modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(Color.DarkGray)
             .padding(10.dp)
     ) {
         Column() {
@@ -63,8 +63,7 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(10.dp)
-                .background(Color.Black)
+                .background(Color.DarkGray)
         ) {
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -154,7 +153,6 @@ fun MeasurementHistory(navController: NavHostController, viewModel: MeasurementV
         ) {
             Text("Back to Profile")
         }
-        BottomButtons(navController)
     }
 }
 

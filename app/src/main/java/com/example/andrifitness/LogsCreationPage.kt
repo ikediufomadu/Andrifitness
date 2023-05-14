@@ -26,12 +26,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 
 @Composable
-fun WorkoutCreationLayout(navController: NavHostController) {
+fun LogsCreationPage(navController: NavHostController) {
 
     val constraints = ConstraintSet {
         val topButtons = createRefFor("topButtons")
         val pageName = createRefFor("pageName")
-        val createdWorkout = createRefFor("createdWorkout")
+        val createdLog = createRefFor("createdLog")
         val bottomButtons = createRefFor("bottomButtons")
 
         constrain(topButtons) {
@@ -40,11 +40,11 @@ fun WorkoutCreationLayout(navController: NavHostController) {
         constrain(pageName) {
             top.linkTo(topButtons.bottom)
         }
-        constrain(createdWorkout) {
+        constrain(createdLog) {
             top.linkTo(pageName.bottom)
         }
         constrain(bottomButtons) {
-            top.linkTo(createdWorkout.bottom)
+            top.linkTo(createdLog.bottom)
         }
     }
     ConstraintLayout(
@@ -63,7 +63,7 @@ fun WorkoutCreationLayout(navController: NavHostController) {
         ) {
             Button(
                 onClick = {
-                    navController.navigate(ApplicationScreens.NewWorkoutScreen.route)
+                    navController.navigate(ApplicationScreens.NewLogsScreen.route)
                 },
                 modifier = Modifier
                     .requiredHeight(WButtonRequiredHeight)
@@ -81,8 +81,8 @@ fun WorkoutCreationLayout(navController: NavHostController) {
             }
             Button(
                 onClick = {
-                    navController.navigate(ApplicationScreens.WorkoutApplicationScreen.route)
-                          },
+                    navController.navigate(ApplicationScreens.LogsApplicationScreen.route)
+                },
                 modifier = Modifier
                     .requiredHeight(WButtonRequiredHeight)
                     .requiredWidth(WButtonRequiredWidth),
@@ -105,7 +105,7 @@ fun WorkoutCreationLayout(navController: NavHostController) {
             horizontalArrangement = Arrangement.Start
         ) {
             Text(
-                text = "Workouts",
+                text = "Logs",
                 color = Color.White
             )
         }
@@ -113,9 +113,9 @@ fun WorkoutCreationLayout(navController: NavHostController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(.80f)
-                .layoutId("createdWorkout")
-         ) {
-            DisplayCards(navController)
+                .layoutId("createdLogs")
+        ) {
+            DisplayCardsLog(navController)
         }
         BottomButtons(navController)
     }
@@ -123,15 +123,15 @@ fun WorkoutCreationLayout(navController: NavHostController) {
 
 
 @Composable
-fun DisplayCards(navController: NavController) {
-    val cards = remember { mutableStateOf(CardList) }
+fun DisplayCardsLog(navController: NavController) {
+    val cardsLog = remember { mutableStateOf(CardListLog) }
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(1),
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp)
     ) {
-        items(cards.value) { card ->
+        items(cardsLog.value) { card ->
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -153,12 +153,12 @@ fun DisplayCards(navController: NavController) {
                     Text(text = "Day: " + card.day, fontSize = 16.sp)
                     Text(text = "Notes: " + card.notes, fontSize = 16.sp)
                 }
-                if (navController.currentDestination?.route == ApplicationScreens.WorkoutCreationApplicationScreen.route) {
+                if (navController.currentDestination?.route == ApplicationScreens.LogsCreationApplicationScreen.route) {
                     val context = LocalContext.current
                     Row(horizontalArrangement = Arrangement.End) {
                         IconButton(
                             onClick = {
-                                CardList.remove(card)
+                                CardListLog.remove(card)
                                 Toast.makeText(context, "Deleted, please click done.", Toast.LENGTH_SHORT).show()
                             },
                             modifier = Modifier.padding(start = 16.dp)

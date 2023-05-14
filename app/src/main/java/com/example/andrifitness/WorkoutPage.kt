@@ -44,7 +44,7 @@ fun WorkoutLayout(navController: NavController) {
     ConstraintLayout(
         constraints, modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(Color.DarkGray)
             .padding(10.dp)
     ) {
         Row(
@@ -128,6 +128,7 @@ fun TimerScreen() {
             .fillMaxWidth()
             .fillMaxHeight(.20f)
             .layoutId("timer")
+
     ) {
         if (!isRunning) {
             // Text input for setting the total time

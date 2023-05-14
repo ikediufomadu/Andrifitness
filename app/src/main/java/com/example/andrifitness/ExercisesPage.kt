@@ -48,13 +48,13 @@ fun ExercisesLayout(navController: NavHostController) {
 
         constraints, modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(Color.DarkGray)
             .padding(10.dp)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Black)
+                .background(Color.DarkGray)
                 .padding(10.dp)
                 .verticalScroll(rememberScrollState())
         ) {

@@ -21,7 +21,10 @@ fun Navigation() {
             ExercisesLayout(navController = navController)
         }
         composable(route = ApplicationScreens.LogsApplicationScreen.route) {
-            LogsLayout(navController = navController)
+            LogsPage(navController = navController)
+        }
+        composable(route = ApplicationScreens.LogsCreationApplicationScreen.route) {
+            LogsCreationPage(navController = navController)
         }
         composable(route = ApplicationScreens.MeasurementsApplicationScreen.route) {
             val viewModel = viewModel<MeasurementViewModel>()
@@ -29,6 +32,9 @@ fun Navigation() {
         }
         composable(route = ApplicationScreens.NewWorkoutScreen.route) {
             NewWorkoutLayout(navController = navController)
+        }
+        composable(route = ApplicationScreens.NewLogsScreen.route) {
+            NewLogsPage(navController = navController)
         }
         composable(route = ApplicationScreens.PreDesignedWorkoutScreen.route) {
             PreDesignedWorkoutLayout(navController = navController)
