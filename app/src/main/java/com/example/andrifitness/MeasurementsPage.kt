@@ -49,7 +49,7 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = weight.value,
-                label = { Text("Weight (in kg)", color = Color.Black) },
+                label = { Text("Weight", color = Color.Black) },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
@@ -69,7 +69,7 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = muscleMass.value,
-                label = { Text("Muscle Mass (in kg)", color = Color.Black) },
+                label = { Text("Muscle Mass", color = Color.Black) },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Done

@@ -113,6 +113,10 @@ fun UserProfileForm(
         }) {
             Text(text = "Save")
         }
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = { navController.navigate(ApplicationScreens.UserProfileForm.route) }) {
+            Text(text = "Edit User Profile")
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = { navController.popBackStack() }) {
