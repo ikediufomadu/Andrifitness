@@ -2,6 +2,7 @@ package com.example.andrifitness
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -53,7 +54,7 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
 
         constraints, modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(Color.Black)
             .padding(10.dp)
     ) {
         Column() {
@@ -63,12 +64,12 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
             modifier = Modifier
                 .fillMaxSize()
                 .padding(10.dp)
-                .background(Color.White)
+                .background(Color.Black)
         ) {
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = weight.value,
-                label = { Text("Weight (in kg)", color = Color.Black) },
+                label = { Text("Weight (in kg)", color = Color.White) },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
@@ -78,7 +79,7 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = bodyFat.value,
-                label = { Text("Body Fat Percentage", color = Color.Black) },
+                label = { Text("Body Fat Percentage", color = Color.White) },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
@@ -88,7 +89,7 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = muscleMass.value,
-                label = { Text("Muscle Mass (in kg)", color = Color.Black) },
+                label = { Text("Muscle Mass (in kg)", color = Color.White) },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Done
@@ -109,7 +110,7 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
                 .height(50.dp),
             enabled = weight.value.isNotEmpty() && bodyFat.value.isNotEmpty() && muscleMass.value.isNotEmpty()
             ) {
-            Text(text = "Add Measurement", color = Color.White)
+            Text(text = "Add Measurement", color = Color.Black)
         }
 
         }

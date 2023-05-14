@@ -51,7 +51,7 @@ fun WorkoutCreationLayout(navController: NavHostController) {
         constraints,
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(Color.Black)
             .padding(10.dp)
     ) {
         Row(
@@ -105,7 +105,7 @@ fun WorkoutCreationLayout(navController: NavHostController) {
         ) {
             Text(
                 text = "Workouts",
-                color = Color.Black
+                color = Color.White
             )
         }
         Column(
@@ -135,7 +135,7 @@ fun DisplayCards(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 5.dp, bottom = 5.dp),
-                backgroundColor = Color.White,
+                backgroundColor = Color.Black,
                 elevation = 4.dp,
                 shape = RoundedCornerShape(8.dp)
             ) {

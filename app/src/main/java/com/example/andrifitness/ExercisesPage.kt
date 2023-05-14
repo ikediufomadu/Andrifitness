@@ -48,13 +48,13 @@ fun ExercisesLayout(navController: NavHostController) {
 
         constraints, modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(Color.Black)
             .padding(10.dp)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
+                .background(Color.Black)
                 .padding(10.dp)
                 .verticalScroll(rememberScrollState())
         ) {
@@ -192,11 +192,11 @@ fun ExerciseButton(category: ExerciseCategory, navController: NavHostController)
                     .fillMaxWidth()
                     .padding(8.dp)
             ){
-                    Text(text = exercise.name, color = Color.Black)
-                    Text(text = exercise.description, color = Color.Black)
+                    Text(text = exercise.name, color = Color.White)
+                    Text(text = exercise.description, color = Color.White)
 
             }
-            Divider(color = Color.Black)
+            Divider(color = Color.White)
         }
         Row(
             horizontalArrangement = Arrangement.Center,
