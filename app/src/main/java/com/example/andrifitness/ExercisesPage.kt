@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
 import androidx.navigation.NavHostController
 import kotlin.math.abs
 import kotlin.system.exitProcess
@@ -22,23 +24,42 @@ import kotlin.system.exitProcess
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ExercisesLayout(navController: NavHostController) {
-    var selectedCategory by remember { mutableStateOf(ExerciseCategory.UPPER_BODY) }
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Exercises") }
-            )
+    val constraints = ConstraintSet {
+        val topButtons = createRefFor("topButtons")
+        val pageName = createRefFor("pageName")
+        val workouts = createRefFor("workouts")
+        val bottomButtons = createRefFor("bottomButtons")
+
+        constrain(topButtons) {
+            top.linkTo(parent.top)
         }
-    )
-    {
+        constrain(pageName) {
+            top.linkTo(topButtons.bottom)
+        }
+        constrain(workouts) {
+            top.linkTo(pageName.bottom)
+        }
+        constrain(bottomButtons) {
+            top.linkTo(workouts.bottom)
+        }
+    }
+    var selectedCategory by remember { mutableStateOf(ExerciseCategory.UPPER_BODY) }
+    ConstraintLayout(
+
+        constraints, modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .padding(10.dp)
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Black)
+                .background(Color.White)
                 .padding(10.dp)
                 .verticalScroll(rememberScrollState())
         ) {
             Column(
+
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
@@ -93,9 +114,11 @@ fun ExercisesLayout(navController: NavHostController) {
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 ExerciseButton(selectedCategory, navController)
+                BottomButtons(navController)
             }
 
         }
+
     }
 }
 
@@ -169,23 +192,23 @@ fun ExerciseButton(category: ExerciseCategory, navController: NavHostController)
                     .fillMaxWidth()
                     .padding(8.dp)
             ){
-                    Text(text = exercise.name, color = Color.White)
-                    Text(text = exercise.description, color = Color.White)
+                    Text(text = exercise.name, color = Color.Black)
+                    Text(text = exercise.description, color = Color.Black)
 
             }
-            Divider(color = Color.White)
+            Divider(color = Color.Black)
         }
         Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)) {
-            Button(
-                onClick = { navController.navigate(ApplicationScreens.WorkoutCreationApplicationScreen.route) },
-
-            ) {
-                Text(text = "Workout")
-            }
+//            Button(
+//                onClick = { navController.navigate(ApplicationScreens.WorkoutCreationApplicationScreen.route) },
+//
+//            ) {
+//                Text(text = "Workout")
+//            }
             val uriHandler = LocalUriHandler.current
             Button(
                 onClick = {
@@ -203,10 +226,7 @@ fun ExerciseButton(category: ExerciseCategory, navController: NavHostController)
                     }else{
                         println("Empty Video")
                     }
-
-
-                },
-
+                }
             ) {
                 Text(text = "Video")
             }

@@ -15,6 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
@@ -27,23 +29,40 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
     val weight = remember { mutableStateOf("") }
     val bodyFat = remember { mutableStateOf("") }
     val muscleMass = remember { mutableStateOf("") }
+    val constraints = ConstraintSet {
+        val topButtons = createRefFor("topButtons")
+        val pageName = createRefFor("pageName")
+        val workouts = createRefFor("workouts")
+        val bottomButtons = createRefFor("bottomButtons")
+
+        constrain(topButtons) {
+            top.linkTo(parent.top)
+        }
+        constrain(pageName) {
+            top.linkTo(topButtons.bottom)
+        }
+        constrain(workouts) {
+            top.linkTo(pageName.bottom)
+        }
+        constrain(bottomButtons) {
+            top.linkTo(workouts.bottom)
+        }
+    }
+
+    ConstraintLayout(
+
+        constraints, modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .padding(10.dp)
+    ) {
+        Column() {
 
 
-    Scaffold(
-        scaffoldState = scaffoldState,
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = "Add Measurement")
-                },
-            )
-        },
-
-        ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(10.dp)
                 .background(Color.White)
         ) {
             OutlinedTextField(
@@ -76,25 +95,28 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
                 ),
                 onValueChange = { muscleMass.value = it }
             )
-        }
-        Button(
-            onClick = {
-                viewModel.addMeasurement(
-                    weight.value.toFloatOrNull(),
-                    bodyFat.value.toFloatOrNull(),
-                    muscleMass.value.toFloatOrNull()
-                )
-            },
+            Button(
+                    onClick = {
+                        viewModel.addMeasurement(
+                            weight.value.toFloatOrNull(),
+                            bodyFat.value.toFloatOrNull(),
+                            muscleMass.value.toFloatOrNull()
+                        )
+                    },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
                 .height(50.dp),
             enabled = weight.value.isNotEmpty() && bodyFat.value.isNotEmpty() && muscleMass.value.isNotEmpty()
-        ) {
+            ) {
             Text(text = "Add Measurement", color = Color.White)
         }
+
+        }
+        BottomButtons(navController)
+        }
     }
-    BottomButtons(navController)
+
 }
 
 @Composable

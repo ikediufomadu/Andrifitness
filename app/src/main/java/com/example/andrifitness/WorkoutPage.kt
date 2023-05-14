@@ -38,7 +38,7 @@ fun WorkoutLayout(navController: NavController) {
     ConstraintLayout(
         constraints, modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(Color.White)
             .padding(10.dp)
     ) {
         Row(

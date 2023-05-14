@@ -39,7 +39,7 @@ fun PreDesignedWorkoutLayout(navController: NavHostController) {
     ConstraintLayout(
         constraints, modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(Color.White)
             .padding(10.dp)
     ) {
         Row (
@@ -51,7 +51,7 @@ fun PreDesignedWorkoutLayout(navController: NavHostController) {
         ) {
             Text(text = "Premade Workouts",
                 fontSize = WTextSize,
-                color = WTextColor
+                color = Color.White
             )
         }
         Column(
