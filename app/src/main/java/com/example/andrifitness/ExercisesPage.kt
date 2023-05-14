@@ -190,14 +190,14 @@ fun ExerciseButton(category: ExerciseCategory, navController: NavHostController)
             Button(
                 onClick = {
                     if (ExerciseCategory.values().any{it.title =="Upper Body" }){
-                        uriHandler.openUri("https://youtube.com/clip/Ugkxb0tboxZVnBIoqPq6rpAS00x5Sl3mJb-7")
-                        exitProcess(1)
+                        uriHandler.openUri("https://youtube.com/clip/UgkxR0UPw5BfhtOWzHyywYtoaOD_ZcdoAd1I")
+                        //exitProcess(1)
                     }else if (ExerciseCategory.values().any{it.title =="Lower Body" }){
-                        uriHandler.openUri("https://youtube.com/")
-                        exitProcess(1)
+                        uriHandler.openUri("https://youtube.com/clip/UgkxR0UPw5BfhtOWzHyywYtoaOD_ZcdoAd1I")
+                        //exitProcess(1)
                     }else if (ExerciseCategory.values().any{it.title =="Full Body" }){
-                    uriHandler.openUri("https://google.com")
-                        exitProcess(1)
+                    uriHandler.openUri("https://youtube.com/clip/UgkxmyrPhmXQt4GpsJRRDgrwMH_lMa2iLk0j")
+                        //exitProcess(1)
                     }else if (ExerciseCategory.values().any{it.title =="Abs" }){
                         uriHandler.openUri("https://youtube.com/clip/Ugkxb0tboxZVnBIoqPq6rpAS00x5Sl3mJb-7")
                     }else{
