@@ -21,7 +21,6 @@ fun WorkoutLayout(navController: NavController) {
         val pageName = createRefFor("pageName")
         val workouts = createRefFor("workouts")
         val bottomButtons = createRefFor("bottomButtons")
-
         constrain(topButtons) {
             top.linkTo(parent.top)
         }
