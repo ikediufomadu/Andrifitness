@@ -2,6 +2,7 @@ package com.example.andrifitness
 
 import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -14,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.navigation.NavHostController
+import kotlin.math.round
 
 
 @Composable
@@ -50,11 +52,21 @@ fun NewWorkoutLayout(navController: NavHostController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Button(
-                onClick = { navController.navigate(ApplicationScreens.WorkoutCreationApplicationScreen.route)}
+                onClick = {
+                    navController.navigate(ApplicationScreens.WorkoutCreationApplicationScreen.route)
+                },
+                modifier = Modifier
+                    .requiredHeight(WButtonRequiredHeight)
+                    .requiredWidth(WButtonRequiredWidth),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = WButtonBackgroundColor,
+                    contentColor = WButtonContentColor
+                )
             ) {
                 Text(
                     text = "X",
-                    color = Color.White
+                    fontSize = WButtonFontSizes,
+                    color = WButtonContentColor
                 )
             }
             Text(
@@ -70,11 +82,19 @@ fun NewWorkoutLayout(navController: NavHostController) {
                     else {
                         showDialog = true
                     }
-                }
+                },
+                modifier = Modifier
+                    .requiredHeight(WButtonRequiredHeight)
+                    .requiredWidth(WButtonRequiredWidth),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = WButtonBackgroundColor,
+                    contentColor = WButtonContentColor
+                )
             ) {
                 Text(
                     text = "Save",
-                    color = Color.White
+                    fontSize = WButtonFontSizes,
+                    color = Color.LightGray,
                 )
             }
         }
@@ -94,7 +114,8 @@ fun NewWorkoutLayout(navController: NavHostController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
-                colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.LightGray)
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = Color.LightGray)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text("Selected day: $selectedDay", color = Color.White)
@@ -103,6 +124,7 @@ fun NewWorkoutLayout(navController: NavHostController) {
                     .fillMaxWidth()
                     .clickable { expanded = !expanded }
                     .background(Color.LightGray)
+                    .padding(top = 24.dp)
             ) {
                 Text(
                     text = selectedDay.ifEmpty { "Select a day" }

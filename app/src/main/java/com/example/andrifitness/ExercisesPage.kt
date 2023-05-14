@@ -1,6 +1,9 @@
 package com.example.andrifitness
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -10,24 +13,44 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
 import androidx.navigation.NavHostController
-import kotlin.math.E
+import kotlin.math.abs
+import kotlin.system.exitProcess
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ExercisesLayout(navController: NavHostController) {
-    var selectedCategory by remember { mutableStateOf(ExerciseCategory.UPPER_BODY) }
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Exercises") }
-            )
+    val constraints = ConstraintSet {
+        val topButtons = createRefFor("topButtons")
+        val pageName = createRefFor("pageName")
+        val workouts = createRefFor("workouts")
+        val bottomButtons = createRefFor("bottomButtons")
+
+        constrain(topButtons) {
+            top.linkTo(parent.top)
         }
-    )
-    {
+        constrain(pageName) {
+            top.linkTo(topButtons.bottom)
+        }
+        constrain(workouts) {
+            top.linkTo(pageName.bottom)
+        }
+        constrain(bottomButtons) {
+            top.linkTo(workouts.bottom)
+        }
+    }
+    var selectedCategory by remember { mutableStateOf(ExerciseCategory.UPPER_BODY) }
+    ConstraintLayout(
+
+        constraints, modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black)
+            .padding(10.dp)
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -36,6 +59,7 @@ fun ExercisesLayout(navController: NavHostController) {
                 .verticalScroll(rememberScrollState())
         ) {
             Column(
+
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
@@ -90,9 +114,11 @@ fun ExercisesLayout(navController: NavHostController) {
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 ExerciseButton(selectedCategory, navController)
+                BottomButtons(navController)
             }
 
         }
+
     }
 }
 
@@ -172,17 +198,42 @@ fun ExerciseButton(category: ExerciseCategory, navController: NavHostController)
             }
             Divider(color = Color.White)
         }
-        Button(
-            onClick = { navController.navigate(ApplicationScreens.WorkoutCreationApplicationScreen.route) },
+        Row(
+            horizontalArrangement = Arrangement.Center,
             modifier = Modifier
-                .align(Alignment.End)
-                .padding(16.dp)
-        ) {
-            Text(text = "Workout")
+                .fillMaxWidth()
+                .padding(8.dp)) {
+//            Button(
+//                onClick = { navController.navigate(ApplicationScreens.WorkoutCreationApplicationScreen.route) },
+//
+//            ) {
+//                Text(text = "Workout")
+//            }
+            val uriHandler = LocalUriHandler.current
+            Button(
+                onClick = {
+                    if (ExerciseCategory.values().any{it.title =="Upper Body" }){
+                        uriHandler.openUri("https://youtube.com/clip/UgkxR0UPw5BfhtOWzHyywYtoaOD_ZcdoAd1I")
+                        //exitProcess(1)
+                    }else if (ExerciseCategory.values().any{it.title =="Lower Body" }){
+                        uriHandler.openUri("https://youtube.com/clip/UgkxR0UPw5BfhtOWzHyywYtoaOD_ZcdoAd1I")
+                        //exitProcess(1)
+                    }else if (ExerciseCategory.values().any{it.title =="Full Body" }){
+                    uriHandler.openUri("https://youtube.com/clip/UgkxmyrPhmXQt4GpsJRRDgrwMH_lMa2iLk0j")
+                        //exitProcess(1)
+                    }else if (ExerciseCategory.values().any{it.title =="Abs" }){
+                        uriHandler.openUri("https://youtube.com/clip/Ugkxb0tboxZVnBIoqPq6rpAS00x5Sl3mJb-7")
+                    }else{
+                        println("Empty Video")
+                    }
+                }
+            ) {
+                Text(text = "Video")
+            }
         }
+
     }
 }
-
 
 enum class ExerciseCategory (val title: String) {
     UPPER_BODY("Upper Body"),

@@ -51,7 +51,7 @@ fun PreDesignedWorkoutLayout(navController: NavHostController) {
         ) {
             Text(text = "Premade Workouts",
                 fontSize = WTextSize,
-                color = WTextColor
+                color = Color.White
             )
         }
         Column(
