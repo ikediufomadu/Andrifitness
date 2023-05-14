@@ -75,7 +75,8 @@ fun WorkoutCreationLayout(navController: NavHostController) {
             ) {
                 Text(
                     text = "+",
-                    fontSize = WButtonFontSizes
+                    fontSize = WButtonFontSizes,
+                    color = WButtonContentColor
                 )
             }
             Button(
