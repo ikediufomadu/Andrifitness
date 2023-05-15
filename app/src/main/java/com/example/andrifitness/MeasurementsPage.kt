@@ -1,8 +1,6 @@
 package com.example.andrifitness
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -13,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -21,71 +20,59 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
-import java.util.*
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MeasurementsLayout(navController: NavHostController, measurementViewModel: MeasurementViewModel) {
-    val scaffoldState = rememberScaffoldState()
     val weight = remember { mutableStateOf("") }
     val bodyFat = remember { mutableStateOf("") }
     val muscleMass = remember { mutableStateOf("") }
     val constraints = ConstraintSet {
-        val topButtons = createRefFor("topButtons")
-        val pageName = createRefFor("pageName")
-        val workouts = createRefFor("workouts")
+        val measurementsArea = createRefFor("measurementsArea")
         val bottomButtons = createRefFor("bottomButtons")
 
-        constrain(topButtons) {
+        constrain(measurementsArea) {
             top.linkTo(parent.top)
         }
-        constrain(pageName) {
-            top.linkTo(topButtons.bottom)
-        }
-        constrain(workouts) {
-            top.linkTo(pageName.bottom)
-        }
         constrain(bottomButtons) {
-            top.linkTo(workouts.bottom)
+            top.linkTo(measurementsArea.bottom)
         }
     }
 
     ConstraintLayout(
-
         constraints, modifier = Modifier
+            .fillMaxSize()
             .background(Color.DarkGray)
             .padding(30.dp)
     ) {
-        Column() {
-
-
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .background(Color.DarkGray)
+                .fillMaxWidth()
+                .fillMaxHeight(.9f)
+                .layoutId("measurementsArea")
         ) {
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
                 colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.LightGray),
+                    backgroundColor = Color.LightGray
+                ),
                 value = weight.value,
-
                 label = { Text("Weight", color = Color.Black) },
-
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
                 ),
                 onValueChange = { weight.value = it }
             )
+
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
                 colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.LightGray),
+                    backgroundColor = Color.LightGray
+                ),
                 value = bodyFat.value,
                 label = { Text("Body Fat Percentage", color = Color.Black) },
                 keyboardOptions = KeyboardOptions(
@@ -94,16 +81,16 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
                 ),
                 onValueChange = { bodyFat.value = it }
             )
+
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
                 colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.LightGray),
+                    backgroundColor = Color.LightGray
+                ),
                 value = muscleMass.value,
-
                 label = { Text("Muscle Mass", color = Color.Black) },
-
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Done
@@ -112,28 +99,24 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
             )
 
             Button(
-                    onClick = {navController.navigate(ApplicationScreens.MeasurementHistoryScreen.route)
-                        measurementViewModel.addMeasurement(
-                            weight.value.toFloatOrNull(),
-                            bodyFat.value.toFloatOrNull(),
-                            muscleMass.value.toFloatOrNull()
-                        )
-                    },
-
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-                .height(50.dp),
-            enabled = weight.value.isNotEmpty() && bodyFat.value.isNotEmpty() && muscleMass.value.isNotEmpty()
+                onClick = {navController.navigate(ApplicationScreens.MeasurementHistoryScreen.route)
+                    measurementViewModel.addMeasurement(
+                        weight.value.toFloat(),
+                        bodyFat.value.toFloat(),
+                        muscleMass.value.toFloat()
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .height(50.dp),
+                enabled = weight.value.isNotEmpty() && bodyFat.value.isNotEmpty() && muscleMass.value.isNotEmpty()
             ) {
-           Text(text = "Add Measurement")
+               Text(text = "Add Measurement")
+            }
         }
-        }
-            //Spacer(modifier = Modifier.height(1.dp))
         BottomButtons(navController)
-        }
     }
-
 }
 
 @Composable

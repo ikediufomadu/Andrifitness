@@ -14,8 +14,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -39,38 +42,71 @@ class UserProfileViewModel : ViewModel() {
 @Composable
 fun UserProfileLayout(navController: NavController, userProfileViewModel: UserProfileViewModel) {
     val userProfile = userProfileViewModel.userProfile.value
+    val constraints = ConstraintSet {
+        val userData = createRefFor("userData")
+        val bottomButtons = createRefFor("bottomButtons")
 
-
-    Column(
-        modifier = Modifier
+        constrain(userData) {
+            top.linkTo(parent.top)
+        }
+        constrain(bottomButtons) {
+            top.linkTo(userData.bottom)
+        }
+    }
+    ConstraintLayout(
+        constraints, modifier = Modifier
             .fillMaxSize()
             .background(Color.DarkGray)
             .padding(10.dp)
-
     ) {
-        Text(text = "User Profile", style = MaterialTheme.typography.h4, color = Color.White)
-        Spacer(modifier = Modifier.height(16.dp))
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(.9f)
+                .background(Color.DarkGray)
+                .padding(10.dp)
+                .layoutId("userData")
+        ) {
+            Text(text = "User Profile", style = MaterialTheme.typography.h4, color = Color.White)
+            Spacer(modifier = Modifier.height(16.dp))
 
 
-        if (userProfile != null) {
-            Text(text = "Name: ${userProfile.name}", style = MaterialTheme.typography.h6, color = Color.White)
-            Text(text = "Age: ${userProfile.age}", style = MaterialTheme.typography.h6, color = Color.White)
-            Text(text = "Height: ${userProfile.height} inch", style = MaterialTheme.typography.h6, color = Color.White)
-            Text(text = "Weight: ${userProfile.weight} lbs", style = MaterialTheme.typography.h6, color = Color.White)
-        } else {
-
-            Text(text = "No user profile found.", color = Color.White)
+            if (userProfile != null) {
+                Text(
+                    text = "Name: ${userProfile.name}",
+                    style = MaterialTheme.typography.h6,
+                    color = Color.White
+                )
+                Text(
+                    text = "Age: ${userProfile.age}",
+                    style = MaterialTheme.typography.h6,
+                    color = Color.White
+                )
+                Text(
+                    text = "Height: ${userProfile.height} (in)",
+                    style = MaterialTheme.typography.h6,
+                    color = Color.White
+                )
+                Text(
+                    text = "Weight: ${userProfile.weight} (kg)",
+                    style = MaterialTheme.typography.h6,
+                    color = Color.White
+                )
+            } else {
+                Text(text = "No user profile found.", color = Color.White)
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(
+                onClick = { navController.navigate(ApplicationScreens.UserProfileForm.route) },
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = WButtonBackgroundColor,
+                    contentColor = WButtonContentColor
+                )
+            ) {
+                Text(text = "Edit User Profile")
+            }
+            Spacer(modifier = Modifier.height(400.dp))
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = { navController.navigate(ApplicationScreens.UserProfileForm.route) },
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = WButtonBackgroundColor,
-                contentColor = WButtonContentColor
-            )) {
-            Text(text = "Edit User Profile")
-        }
-        Spacer(modifier = Modifier.height(400.dp))
         BottomButtons(navController)
     }
 }
