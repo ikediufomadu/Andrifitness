@@ -50,7 +50,7 @@ fun Navigation() {
             UserProfileForm(navController = navController, userProfileViewModel = userProfileViewModel)
         }
         composable(route = ApplicationScreens.WorkoutProgress.route){
-            WorkoutProgress(navController = navController, viewModel = workoutProgressViewModel )
+            WorkoutProgress(navController = navController, viewModel = workoutProgressViewModel)
         }
     }
 }

@@ -2,6 +2,8 @@ package com.example.andrifitness
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -110,11 +112,21 @@ fun WorkoutLayout(navController: NavController) {
                 .fillMaxHeight(.60f)
                 .layoutId("workouts")
         ) {
+
+            Button(
+                onClick = { navController.navigate(ApplicationScreens.WorkoutProgress.route) },
+                modifier = Modifier
+                    .requiredHeight(WButtonRequiredHeight),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = WButtonBackgroundColor,
+                    contentColor = WButtonContentColor
+                )
+            ) {
+                Text(text = "Track Workout Progress")
+            }
             DisplayCards(navController)
         }
-        Button(onClick = { navController.navigate(ApplicationScreens.WorkoutProgress.route) }) {
-            Text(text = "Track Workout Progress")
-        }
+
 
         BottomButtons(navController)
     }
@@ -219,6 +231,31 @@ class WorkoutProgressViewModel : ViewModel() {
 @Composable
 fun WorkoutProgress(navController: NavController, viewModel: WorkoutProgressViewModel ) {
     val workoutEntries = viewModel.workoutEntries
+    Column(
+        modifier = Modifier
+        .background(Color.DarkGray)
+            .fillMaxSize()
+    ) {
+        Column{
+            Text(text = "Workout Progress", style = MaterialTheme.typography.h4)
+
+            LazyColumn {
+                items(workoutEntries) { entry ->
+                    Text(text = "Duration: ${entry.duration} mins, Calories Burned: ${entry.caloriesBurned}")
+                }
+            }
+
+            val totalDuration = workoutEntries.sumOf { it.duration }
+            val totalCaloriesBurned = workoutEntries.sumOf { it.caloriesBurned }
+            Text(text = "Total Duration: $totalDuration mins")
+            Text(text = "Total Calories Burned: $totalCaloriesBurned")
+
+            Button(onClick = { navController.popBackStack() }) {
+                Text(text = "Back")
+            }
+        }
+    }
+
 }
 
 private fun formatTime(timeInSeconds: Int): String {
