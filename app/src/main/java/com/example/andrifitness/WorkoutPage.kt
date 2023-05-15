@@ -2,16 +2,22 @@ package com.example.andrifitness
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 
 @Composable
@@ -102,6 +108,47 @@ fun WorkoutLayout(navController: NavController) {
         ) {
             DisplayCards(navController)
         }
+        Button(onClick = { navController.navigate(ApplicationScreens.WorkoutProgress.route) }) {
+            Text(text = "Track Workout Progress")
+        }
+
         BottomButtons(navController)
+    }
+
+}
+data class WorkoutEntry(
+    val duration: Int,
+    val caloriesBurned: Int
+)
+
+class WorkoutProgressViewModel : ViewModel() {
+    private val _workoutEntries = mutableStateListOf<WorkoutEntry>()
+    val workoutEntries: List<WorkoutEntry> get() = _workoutEntries
+
+    fun addWorkoutEntry(entry: WorkoutEntry) {
+        _workoutEntries.add(entry)
+    }
+}
+@Composable
+fun WorkoutProgress(navController: NavController, viewModel: WorkoutProgressViewModel ) {
+    val workoutEntries = viewModel.workoutEntries
+
+    Column {
+        Text(text = "Workout Progress", style = MaterialTheme.typography.h4)
+
+        LazyColumn {
+            items(workoutEntries) { entry ->
+                Text(text = "Duration: ${entry.duration} mins, Calories Burned: ${entry.caloriesBurned}")
+            }
+        }
+
+        val totalDuration = workoutEntries.sumBy { it.duration }
+        val totalCaloriesBurned = workoutEntries.sumBy { it.caloriesBurned }
+        Text(text = "Total Duration: $totalDuration mins")
+        Text(text = "Total Calories Burned: $totalCaloriesBurned")
+
+        Button(onClick = { navController.popBackStack() }) {
+            Text(text = "Back")
+        }
     }
 }

@@ -12,6 +12,7 @@ fun Navigation() {
     val navController = rememberNavController()
     val measurementViewModel = viewModel<MeasurementViewModel>()
     val userProfileViewModel = viewModel<UserProfileViewModel>()
+    val workoutProgressViewModel = viewModel<WorkoutProgressViewModel>()
     NavHost(navController = navController, startDestination = ApplicationScreens.WorkoutApplicationScreen.route) {
         composable(route = ApplicationScreens.WorkoutApplicationScreen.route) {
             WorkoutLayout(navController = navController)
@@ -39,6 +40,9 @@ fun Navigation() {
         }
         composable(route = ApplicationScreens.UserProfileForm.route){
             UserProfileForm(navController = navController, userProfileViewModel = userProfileViewModel)
+        }
+        composable(route = ApplicationScreens.WorkoutProgress.route){
+            WorkoutProgress(navController = navController, viewModel = workoutProgressViewModel )
         }
     }
 }

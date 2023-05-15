@@ -10,6 +10,6 @@ sealed class ApplicationScreens(val route: String) {
     object PreDesignedWorkoutScreen : ApplicationScreens(route = "PreDesignedWorkoutScreen")
     object UserProfileScreen: ApplicationScreens(route = "UserProfileScreen")
     object UserProfileForm: ApplicationScreens(route = "UserProfileForm")
-
+    object WorkoutProgress: ApplicationScreens(route = "WorkoutProgress")
 }
 

@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 
 
@@ -34,7 +35,7 @@ class UserProfileViewModel : ViewModel() {
 }
 
 @Composable
-fun UserProfileLayout(navController: NavHostController, userProfileViewModel: UserProfileViewModel) {
+fun UserProfileLayout(navController: NavController, userProfileViewModel: UserProfileViewModel) {
     val userProfile = userProfileViewModel.userProfile.value
 
     Column {
@@ -89,14 +90,14 @@ fun UserProfileForm(
         OutlinedTextField(
             value = height.value,
             onValueChange = { height.value = it },
-            label = { Text(text = "Height (cm)") },
+            label = { Text(text = "Height") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
         OutlinedTextField(
             value = weight.value,
             onValueChange = { weight.value = it },
-            label = { Text(text = "Weight (kg)") },
+            label = { Text(text = "Weight") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
