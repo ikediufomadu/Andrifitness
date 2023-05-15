@@ -55,8 +55,8 @@ fun UserProfileLayout(navController: NavController, userProfileViewModel: UserPr
         if (userProfile != null) {
             Text(text = "Name: ${userProfile.name}", style = MaterialTheme.typography.h6, color = Color.White)
             Text(text = "Age: ${userProfile.age}", style = MaterialTheme.typography.h6, color = Color.White)
-            Text(text = "Height: ${userProfile.height} cm", style = MaterialTheme.typography.h6, color = Color.White)
-            Text(text = "Weight: ${userProfile.weight} kg", style = MaterialTheme.typography.h6, color = Color.White)
+            Text(text = "Height: ${userProfile.height} inch", style = MaterialTheme.typography.h6, color = Color.White)
+            Text(text = "Weight: ${userProfile.weight} lbs", style = MaterialTheme.typography.h6, color = Color.White)
         } else {
 
             Text(text = "No user profile found.", color = Color.White)

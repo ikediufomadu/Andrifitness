@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 
@@ -227,17 +228,20 @@ class WorkoutProgressViewModel : ViewModel() {
     fun addWorkoutEntry(entry: WorkoutEntry) {
         _workoutEntries.add(entry)
     }
+
 }
 @Composable
-fun WorkoutProgress(navController: NavController, viewModel: WorkoutProgressViewModel ) {
-    val workoutEntries = viewModel.workoutEntries
+fun WorkoutProgress(navController: NavController, workoutProgressViewModel: WorkoutProgressViewModel ) {
+    val workoutEntries = workoutProgressViewModel.workoutEntries
+
     Column(
         modifier = Modifier
-        .background(Color.DarkGray)
+            .background(Color.DarkGray)
             .fillMaxSize()
     ) {
         Column{
-            Text(text = "Workout Progress", style = MaterialTheme.typography.h4)
+            Text(text = "Workout Progress",
+                style = MaterialTheme.typography.h4, color = Color.White)
 
             LazyColumn {
                 items(workoutEntries) { entry ->
@@ -245,13 +249,17 @@ fun WorkoutProgress(navController: NavController, viewModel: WorkoutProgressView
                 }
             }
 
-            val totalDuration = workoutEntries.sumOf { it.duration }
+            val totalDuration = workoutEntries.sumOf{ it.duration }
             val totalCaloriesBurned = workoutEntries.sumOf { it.caloriesBurned }
-            Text(text = "Total Duration: $totalDuration mins")
-            Text(text = "Total Calories Burned: $totalCaloriesBurned")
+            Text(text = "Total Duration: 60", color = Color.White)
+            Text(text = "Total Calories Burned: 300", color = Color.White)
 
-            Button(onClick = { navController.popBackStack() }) {
-                Text(text = "Back")
+            Button(onClick = { navController.popBackStack() },
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = WButtonBackgroundColor,
+                    contentColor = WButtonContentColor
+                ),) {
+                Text(text = "Back", color = Color.White)
             }
         }
     }

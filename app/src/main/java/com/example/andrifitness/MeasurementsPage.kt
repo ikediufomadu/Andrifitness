@@ -53,9 +53,8 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
     ConstraintLayout(
 
         constraints, modifier = Modifier
-            .fillMaxSize()
             .background(Color.DarkGray)
-            .padding(10.dp)
+            .padding(30.dp)
     ) {
         Column() {
 
@@ -73,7 +72,7 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
                     backgroundColor = Color.LightGray),
                 value = weight.value,
 
-                label = { Text("Weight (in kg)", color = Color.White) },
+                label = { Text("Weight", color = Color.Black) },
 
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
@@ -88,7 +87,7 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.LightGray),
                 value = bodyFat.value,
-                label = { Text("Body Fat Percentage", color = Color.White) },
+                label = { Text("Body Fat Percentage", color = Color.Black) },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
@@ -103,7 +102,7 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
                     backgroundColor = Color.LightGray),
                 value = muscleMass.value,
 
-                label = { Text("Muscle Mass (in kg)", color = Color.White) },
+                label = { Text("Muscle Mass", color = Color.Black) },
 
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
