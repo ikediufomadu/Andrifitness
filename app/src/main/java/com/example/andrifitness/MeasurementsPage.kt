@@ -22,7 +22,7 @@ import java.util.*
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementViewModel) {
+fun MeasurementsLayout(navController: NavHostController, measurementViewModel: MeasurementViewModel) {
     val scaffoldState = rememberScaffoldState()
     val weight = remember { mutableStateOf("") }
     val bodyFat = remember { mutableStateOf("") }
@@ -79,7 +79,7 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
         }
         Button(
             onClick = {
-                viewModel.addMeasurement(
+                measurementViewModel.addMeasurement(
                     weight.value.toFloatOrNull(),
                     bodyFat.value.toFloatOrNull(),
                     muscleMass.value.toFloatOrNull()

@@ -10,7 +10,7 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    val viewModel = viewModel<MeasurementViewModel>()
+    val measurementViewModel = viewModel<MeasurementViewModel>()
     val userProfileViewModel = viewModel<UserProfileViewModel>()
     NavHost(navController = navController, startDestination = ApplicationScreens.WorkoutApplicationScreen.route) {
         composable(route = ApplicationScreens.WorkoutApplicationScreen.route) {
@@ -26,7 +26,7 @@ fun Navigation() {
             LogsLayout(navController = navController)
         }
         composable(route = ApplicationScreens.MeasurementsApplicationScreen.route) {
-            MeasurementsLayout(navController = navController, viewModel = viewModel)
+            MeasurementsLayout(navController = navController, measurementViewModel = measurementViewModel)
         }
         composable(route = ApplicationScreens.NewWorkoutScreen.route) {
             NewWorkoutLayout(navController = navController)
@@ -36,9 +36,6 @@ fun Navigation() {
         }
         composable(route =ApplicationScreens.UserProfileScreen.route){
             UserProfileLayout(navController = navController, userProfileViewModel = userProfileViewModel)
-        }
-        composable(route = ApplicationScreens.MeasuremntHistoryScreen.route){
-            MeasurementHistory(navController = navController, viewModel = viewModel)
         }
         composable(route = ApplicationScreens.UserProfileForm.route){
             UserProfileForm(navController = navController, userProfileViewModel = userProfileViewModel)
