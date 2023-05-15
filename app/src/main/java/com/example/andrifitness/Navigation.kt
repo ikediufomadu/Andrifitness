@@ -24,13 +24,19 @@ fun Navigation() {
             ExercisesLayout(navController = navController)
         }
         composable(route = ApplicationScreens.LogsApplicationScreen.route) {
-            LogsLayout(navController = navController)
+            LogsPage(navController = navController)
+        }
+        composable(route = ApplicationScreens.LogsCreationApplicationScreen.route) {
+            LogsCreationPage(navController = navController)
         }
         composable(route = ApplicationScreens.MeasurementsApplicationScreen.route) {
             MeasurementsLayout(navController = navController, measurementViewModel = measurementViewModel)
         }
         composable(route = ApplicationScreens.NewWorkoutScreen.route) {
             NewWorkoutLayout(navController = navController)
+        }
+        composable(route = ApplicationScreens.NewLogsScreen.route) {
+            NewLogsPage(navController = navController)
         }
         composable(route = ApplicationScreens.PreDesignedWorkoutScreen.route) {
             PreDesignedWorkoutLayout(navController = navController)

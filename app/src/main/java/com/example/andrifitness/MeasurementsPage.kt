@@ -2,6 +2,7 @@ package com.example.andrifitness
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -15,6 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
@@ -27,29 +30,47 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
     val weight = remember { mutableStateOf("") }
     val bodyFat = remember { mutableStateOf("") }
     val muscleMass = remember { mutableStateOf("") }
+    val constraints = ConstraintSet {
+        val topButtons = createRefFor("topButtons")
+        val pageName = createRefFor("pageName")
+        val workouts = createRefFor("workouts")
+        val bottomButtons = createRefFor("bottomButtons")
+
+        constrain(topButtons) {
+            top.linkTo(parent.top)
+        }
+        constrain(pageName) {
+            top.linkTo(topButtons.bottom)
+        }
+        constrain(workouts) {
+            top.linkTo(pageName.bottom)
+        }
+        constrain(bottomButtons) {
+            top.linkTo(workouts.bottom)
+        }
+    }
+
+    ConstraintLayout(
+
+        constraints, modifier = Modifier
+            .fillMaxSize()
+            .background(Color.DarkGray)
+            .padding(10.dp)
+    ) {
+        Column() {
 
 
-    Scaffold(
-        scaffoldState = scaffoldState,
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = "Add Measurement")
-                },
-            )
-        },
-
-        ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
-                .background(Color.White)
+                .background(Color.DarkGray)
         ) {
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = weight.value,
-                label = { Text("Weight", color = Color.Black) },
+
+                label = { Text("Weight (in kg)", color = Color.White) },
+
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
@@ -59,7 +80,7 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = bodyFat.value,
-                label = { Text("Body Fat Percentage", color = Color.Black) },
+                label = { Text("Body Fat Percentage", color = Color.White) },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
@@ -69,32 +90,39 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = muscleMass.value,
-                label = { Text("Muscle Mass", color = Color.Black) },
+
+                label = { Text("Muscle Mass (in kg)", color = Color.White) },
+
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Done
                 ),
                 onValueChange = { muscleMass.value = it }
             )
-        }
-        Button(
-            onClick = {
-                measurementViewModel.addMeasurement(
-                    weight.value.toFloatOrNull(),
-                    bodyFat.value.toFloatOrNull(),
-                    muscleMass.value.toFloatOrNull()
-                )
-            },
+
+            Button(
+                    onClick = {
+                        viewModel.addMeasurement(
+                            weight.value.toFloatOrNull(),
+                            bodyFat.value.toFloatOrNull(),
+                            muscleMass.value.toFloatOrNull()
+                        )
+                    },
+
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
                 .height(50.dp),
             enabled = weight.value.isNotEmpty() && bodyFat.value.isNotEmpty() && muscleMass.value.isNotEmpty()
-        ) {
-            Text(text = "Add Measurement", color = Color.White)
+            ) {
+            Text(text = "Add Measurement", color = Color.Black)
+        }
+
+        }
+        BottomButtons(navController)
         }
     }
-    BottomButtons(navController)
+
 }
 
 @Composable
@@ -131,7 +159,6 @@ fun MeasurementHistory(navController: NavHostController, viewModel: MeasurementV
         ) {
             Text("Back to Profile")
         }
-        BottomButtons(navController)
     }
 }
 

@@ -1,5 +1,8 @@
 package com.example.andrifitness
 
+import android.widget.ImageView
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -17,7 +20,9 @@ fun BottomButtons(navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight(0.10f)
-            .layoutId("bottomButtons"),
+            .layoutId("bottomButtons")
+        ,
+
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -25,13 +30,15 @@ fun BottomButtons(navController: NavController) {
             onClick = { navController.navigate(ApplicationScreens.WorkoutApplicationScreen.route)},
             modifier = Modifier
                 .requiredHeight(ButtonRequiredHeight)
-                .requiredWidth(ButtonRequiredWidth),
+                .requiredWidth(ButtonRequiredWidth)
+                ,
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = ButtonBackgroundColor,
                 contentColor = ButtonContentColor
             )
         ) {
             Text(text = "Workouts", fontSize = ButtonFontSizes)
+
         }
         Button(
             onClick = { navController.navigate(ApplicationScreens.ExercisesApplicationScreen.route)},
