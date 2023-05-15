@@ -112,11 +112,21 @@ fun WorkoutLayout(navController: NavController) {
                 .fillMaxHeight(.60f)
                 .layoutId("workouts")
         ) {
+
+            Button(
+                onClick = { navController.navigate(ApplicationScreens.WorkoutProgress.route) },
+                modifier = Modifier
+                    .requiredHeight(WButtonRequiredHeight),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = WButtonBackgroundColor,
+                    contentColor = WButtonContentColor
+                )
+            ) {
+                Text(text = "Track Workout Progress")
+            }
             DisplayCards(navController)
         }
-        Button(onClick = { navController.navigate(ApplicationScreens.WorkoutProgress.route) }) {
-            Text(text = "Track Workout Progress")
-        }
+
 
         BottomButtons(navController)
     }
@@ -221,24 +231,31 @@ class WorkoutProgressViewModel : ViewModel() {
 @Composable
 fun WorkoutProgress(navController: NavController, viewModel: WorkoutProgressViewModel ) {
     val workoutEntries = viewModel.workoutEntries
-    Column {
-        Text(text = "Workout Progress", style = MaterialTheme.typography.h4)
+    Column(
+        modifier = Modifier
+        .background(Color.DarkGray)
+            .fillMaxSize()
+    ) {
+        Column{
+            Text(text = "Workout Progress", style = MaterialTheme.typography.h4)
 
-        LazyColumn {
-            items(workoutEntries) { entry ->
-                Text(text = "Duration: ${entry.duration} mins, Calories Burned: ${entry.caloriesBurned}")
+            LazyColumn {
+                items(workoutEntries) { entry ->
+                    Text(text = "Duration: ${entry.duration} mins, Calories Burned: ${entry.caloriesBurned}")
+                }
+            }
+
+            val totalDuration = workoutEntries.sumOf { it.duration }
+            val totalCaloriesBurned = workoutEntries.sumOf { it.caloriesBurned }
+            Text(text = "Total Duration: $totalDuration mins")
+            Text(text = "Total Calories Burned: $totalCaloriesBurned")
+
+            Button(onClick = { navController.popBackStack() }) {
+                Text(text = "Back")
             }
         }
-
-        val totalDuration = workoutEntries.sumBy { it.duration }
-        val totalCaloriesBurned = workoutEntries.sumBy { it.caloriesBurned }
-        Text(text = "Total Duration: $totalDuration mins")
-        Text(text = "Total Calories Burned: $totalCaloriesBurned")
-
-        Button(onClick = { navController.popBackStack() }) {
-            Text(text = "Back")
-        }
     }
+
 }
 
 private fun formatTime(timeInSeconds: Int): String {
