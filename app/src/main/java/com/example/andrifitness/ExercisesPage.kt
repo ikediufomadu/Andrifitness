@@ -190,7 +190,7 @@ fun ExerciseButton(category: ExerciseCategory, navController: NavHostController)
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp)
+                    .padding(7.5.dp)
             ){
                     Text(text = exercise.name, color = Color.White)
                     Text(text = exercise.description, color = Color.White)

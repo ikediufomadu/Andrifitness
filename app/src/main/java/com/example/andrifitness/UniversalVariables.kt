@@ -12,7 +12,7 @@ val ButtonBackgroundColor = Color.Black
 val ButtonContentColor = Color.White
 val ButtonFontSizes = 10.sp
 val ButtonRequiredHeight = 40.dp
-val ButtonRequiredWidth = 60.dp
+val ButtonRequiredWidth = 88.dp
 
 // WorkoutCreation and WorkoutPage button settings
 val WButtonBackgroundColor = Color.Black
