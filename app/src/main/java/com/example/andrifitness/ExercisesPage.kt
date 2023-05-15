@@ -184,8 +184,8 @@ fun ExerciseButton(category: ExerciseCategory) {
                     .fillMaxWidth()
                     .padding(top = 7.5.dp)
             ){
-                    Text(text = exercise.name, color = Color.White)
-                    Text(text = exercise.description, color = Color.White)
+                Text(text = exercise.name, color = Color.White)
+                Text(text = exercise.description, color = Color.White)
 
             }
             Divider(color = Color.White)
@@ -203,7 +203,7 @@ fun ExerciseButton(category: ExerciseCategory) {
                     }else if (ExerciseCategory.values().any{it.title =="Lower Body" }){
                         uriHandler.openUri("https://youtube.com/clip/UgkxR0UPw5BfhtOWzHyywYtoaOD_ZcdoAd1I")
                     }else if (ExerciseCategory.values().any{it.title =="Full Body" }){
-                    uriHandler.openUri("https://youtube.com/clip/UgkxmyrPhmXQt4GpsJRRDgrwMH_lMa2iLk0j")
+                        uriHandler.openUri("https://youtube.com/clip/UgkxmyrPhmXQt4GpsJRRDgrwMH_lMa2iLk0j")
                     }else if (ExerciseCategory.values().any{it.title =="Abs" }){
                         uriHandler.openUri("https://youtube.com/clip/Ugkxb0tboxZVnBIoqPq6rpAS00x5Sl3mJb-7")
                     }else{
