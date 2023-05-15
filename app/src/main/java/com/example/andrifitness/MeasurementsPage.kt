@@ -127,6 +127,7 @@ fun MeasurementHistory(navController: NavHostController, measurementViewModel: M
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.DarkGray)
             .padding(16.dp)
     ) {
         Text(
@@ -150,9 +151,9 @@ fun MeasurementHistory(navController: NavHostController, measurementViewModel: M
         }
         Button(
             onClick = { navController.popBackStack()},
-            modifier = Modifier.padding(top = 16.dp)
+            modifier = Modifier.padding(top = 16.dp),
         ) {
-            Text("Back to Profile")
+            Text("Back to Profile", color = Color.Black)
         }
     }
 }
