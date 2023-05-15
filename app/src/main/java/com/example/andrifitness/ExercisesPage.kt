@@ -169,7 +169,7 @@ fun ExerciseButton(category: ExerciseCategory) {
             Exercise("Mountain Climbers", "5 sets 30 seconds"),
             Exercise("Leg Raise to Kick-Up", "10 reps"),
             Exercise("Flutter Kicks", "10 each side"),
-            Exercise("Around the Worlds", "5 each direction")
+            Exercise("Around the Worlds", "5 each direction"),
         )
     }
 

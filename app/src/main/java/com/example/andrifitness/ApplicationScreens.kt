@@ -3,7 +3,7 @@ package com.example.andrifitness
 sealed class ApplicationScreens(val route: String) {
     object WorkoutApplicationScreen : ApplicationScreens(route = "main_screen")
     object WorkoutCreationApplicationScreen : ApplicationScreens(route = "WorkoutCreationScreen")
-    object LogsCreationApplicationScreen : ApplicationScreens(route = "LogsCreationScreen")
+    object LogsCreationApplicationScreen : ApplicationScreens(route = "LogsCreationApplicationScreen")
     object ExercisesApplicationScreen : ApplicationScreens(route = "ExercisesScreen")
     object LogsApplicationScreen : ApplicationScreens(route = "LogsScreen")
     object MeasurementsApplicationScreen : ApplicationScreens(route = "MeasurementsScreen")
@@ -12,11 +12,6 @@ sealed class ApplicationScreens(val route: String) {
     object PreDesignedWorkoutScreen : ApplicationScreens(route = "PreDesignedWorkoutScreen")
     object UserProfileScreen: ApplicationScreens(route = "UserProfileScreen")
     object UserProfileForm: ApplicationScreens(route = "UserProfileForm")
-
     object WorkoutProgress: ApplicationScreens(route = "WorkoutProgress")
-
-    object MeasuremntHistoryScreen: ApplicationScreens(route = "MeasurementHistoryScreen")
-
-
 }
 

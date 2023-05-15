@@ -2,43 +2,31 @@ package com.example.andrifitness
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.navigation.NavController
-import kotlinx.coroutines.delay
 
 @Composable
 fun LogsPage(navController: NavController) {
     val constraints = ConstraintSet {
         val topButtons = createRefFor("topButtons")
-        val pageName = createRefFor("pageName")
-        val timer = createRefFor("timer")
-        val workouts = createRefFor("workouts")
+        val logs = createRefFor("Logs")
         val bottomButtons = createRefFor("bottomButtons")
 
         constrain(topButtons) {
             top.linkTo(parent.top)
         }
-        constrain(pageName) {
+        constrain(logs) {
             top.linkTo(topButtons.bottom)
         }
-        constrain(timer) {
-            top.linkTo(pageName.bottom)
-        }
-        constrain(workouts) {
-            top.linkTo(timer.bottom)
-        }
         constrain(bottomButtons) {
-            top.linkTo(workouts.bottom)
+            top.linkTo(logs.bottom)
         }
     }
     ConstraintLayout(
@@ -73,17 +61,15 @@ fun LogsPage(navController: NavController) {
             }
         }
 
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(.60f)
+                .fillMaxHeight(.85f)
                 .layoutId("Logs")
         ) {
             DisplayCards(navController)
-
         }
-        //Spacer(modifier = Modifier.height(400.dp))
+
         BottomButtons(navController)
     }
 }
