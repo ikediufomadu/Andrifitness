@@ -27,7 +27,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import kotlin.math.sqrt
 
 @Composable
-fun MeasurementsLayout(navController: NavHostController, measurementViewModel: MeasurementViewModel) {
+fun MeasurementsLayout(navController: NavHostController) {
+    val height = remember { mutableStateOf(0f) }
     val weight = remember { mutableStateOf(0f) }
     val bodyFat = remember { mutableStateOf(0f) }
     val muscleMass = remember { mutableStateOf(0f) }
@@ -55,6 +56,21 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
                 .fillMaxHeight(.9f)
                 .layoutId("measurementsArea")
         ) {
+            OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = Color.LightGray
+                ),
+                value = height.value.toString(),
+                label = { Text("Height", color = Color.Black) },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Next
+                ),
+                onValueChange = { height.value = it.toFloatOrNull() ?: 0f }
+            )
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -104,14 +120,13 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
             )
 
             Button(
-                onClick = {navController.navigate(ApplicationScreens.MeasurementHistoryScreen.route + "/${weight.value}/${bodyFat.value}/${muscleMass.value}")
+                onClick = {navController.navigate(ApplicationScreens.MeasurementHistoryScreen.route + "/${height.value}/${weight.value}/${bodyFat.value}/${muscleMass.value}")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
                     .height(50.dp),
-                //TODO sdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfdsfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd
-//                enabled = weight.value != 0f && bodyFat.value != 0f && muscleMass.value != 0f
+                enabled = weight.value != 0f && bodyFat.value != 0f && muscleMass.value != 0f
             ) {
                 Text(text = "Add Measurement")
             }
@@ -127,50 +142,112 @@ fun MeasurementHistory(
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val arguments = navBackStackEntry?.arguments
-
+    val height = arguments?.getFloat("height")
     val weight = arguments?.getFloat("weight")
     val bodyFat = arguments?.getFloat("bodyFat")
     val muscleMass = arguments?.getFloat("muscleMass")
+
     val measurements = measurementViewModel.measurementList.value ?: emptyList()
 
     measurementViewModel.addMeasurement(
+        height,
         weight,
         bodyFat,
         muscleMass
     )
-    Column(
+
+    val constraints = ConstraintSet {
+        val topButtons = createRefFor("topButtons")
+        val pageName = createRefFor("pageName")
+        val measurementLog = createRefFor("measurementLog")
+
+        constrain(topButtons) {
+            top.linkTo(parent.top)
+        }
+        constrain(pageName) {
+            top.linkTo(topButtons.bottom)
+        }
+        constrain(measurementLog) {
+            top.linkTo(pageName.bottom)
+        }
+    }
+    ConstraintLayout(
+        constraints,
         modifier = Modifier
             .fillMaxSize()
             .background(Color.DarkGray)
-            .padding(16.dp)
+            .padding(10.dp)
     ) {
-        Text(
-            text = "Measurement History",
-            style = MaterialTheme.typography.h4,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        if (measurements.isEmpty()) {
-            Text("No measurements yet.")
-        } else {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize()
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.1f)
+                .layoutId("topButtons"),
+            horizontalArrangement = Arrangement.End
+        ) {
+            Button(
+                onClick = {
+                    navController.navigate(ApplicationScreens.MeasurementsApplicationScreen.route)
+                },
+                modifier = Modifier
+                    .requiredHeight(WButtonRequiredHeight)
+                    .requiredWidth(WButtonRequiredWidth),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = WButtonBackgroundColor,
+                    contentColor = WButtonContentColor
+                )
             ) {
-                itemsIndexed(measurements) { index, measurement ->
-                    Text(
-                        text = "Index ${index + 1}- Height: ${measurement.height} in, Weight: ${measurement.weight} kg, Body Fat=${measurement.bodyFat}%, Muscle Mass=${measurement.muscleMass}%, BMI: " + BMICalculator(measurement.weight, measurement.height),
-                        modifier = Modifier.padding(vertical = 8.dp)
-                    )
-                }
+                Text(
+                    text = "Done",
+                    fontSize = WButtonFontSizes
+                )
             }
         }
-        Button(
-            onClick = { navController.popBackStack()},
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = WButtonBackgroundColor,
-                contentColor = WButtonContentColor
-            )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.1f)
+                .layoutId("pageName")
         ) {
-            Text("Back to Profile")
+            Text(
+                text = "Measurement History",
+                style = MaterialTheme.typography.h4,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(.80f)
+                .layoutId("measurementLog")
+        ) {
+
+            if (measurements.isEmpty()) {
+                Text("No measurements yet.")
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    itemsIndexed(measurements) { index, measurement ->
+                        Text(
+                            text = "Index ${index + 1}- Height: ${measurement.height} in, Weight: ${measurement.weight} kg, Body Fat=${measurement.bodyFat}%, Muscle Mass=${measurement.muscleMass}%, BMI: " + BMICalculator(
+                                measurement.weight,
+                                measurement.height
+                            ),
+                            modifier = Modifier.padding(vertical = 8.dp)
+                        )
+                    }
+                }
+            }
+            Button(
+                onClick = { navController.popBackStack() },
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = WButtonBackgroundColor,
+                    contentColor = WButtonContentColor
+                )
+            ) {
+                Text("Back to Profile")
+            }
         }
     }
 }

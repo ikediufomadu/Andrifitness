@@ -33,7 +33,7 @@ fun Navigation() {
             LogsCreationPage(navController = navController)
         }
         composable(route = ApplicationScreens.MeasurementsApplicationScreen.route) {
-            MeasurementsLayout(navController = navController, measurementViewModel = measurementViewModel)
+            MeasurementsLayout(navController = navController)
         }
         composable(route = ApplicationScreens.NewWorkoutScreen.route) {
             NewWorkoutLayout(navController = navController)
@@ -55,8 +55,9 @@ fun Navigation() {
         composable(route = ApplicationScreens.WorkoutProgress.route){
             WorkoutProgress(navController = navController, workoutProgressViewModel = workoutProgressViewModel)
         }
-        composable(route = "MeasurementHistory/{weight}/{bodyFat}/{muscleMass}",
+        composable(route = "MeasurementHistory/{height}/{weight}/{bodyFat}/{muscleMass}",
             arguments = listOf(
+                navArgument("height") { type = NavType.FloatType },
                 navArgument("weight") { type = NavType.FloatType },
                 navArgument("bodyFat") { type = NavType.FloatType },
                 navArgument("muscleMass") { type = NavType.FloatType }
