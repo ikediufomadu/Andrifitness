@@ -73,19 +73,7 @@ fun LogsPage(navController: NavController) {
             }
         }
 
-        Row (
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.05f)
-                .layoutId("pageName"),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(text = "Workouts",
-                fontSize = WTextSize,
-                color = Color.White
-            )
-        }
-        TimerScreen()
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -93,7 +81,9 @@ fun LogsPage(navController: NavController) {
                 .layoutId("Logs")
         ) {
             DisplayCards(navController)
+
         }
+        //Spacer(modifier = Modifier.height(400.dp))
         BottomButtons(navController)
     }
 }

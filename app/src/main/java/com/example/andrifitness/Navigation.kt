@@ -40,7 +40,10 @@ fun Navigation() {
             PreDesignedWorkoutLayout(navController = navController)
         }
         composable(route =ApplicationScreens.UserProfileScreen.route){
-            UserProfile(navController = navController)
+            UserProfileLayout(navController = navController, userProfileViewModel = viewModel())
+        }
+        composable(route = ApplicationScreens.UserProfileForm.route){
+            UserProfileForm(navController = navController, userProfileViewModel = viewModel())
         }
         composable(route = ApplicationScreens.MeasuremntHistoryScreen.route){
             val viewModel = viewModel<MeasurementViewModel>()

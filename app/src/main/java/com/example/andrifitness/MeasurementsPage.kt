@@ -66,7 +66,11 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
                 .background(Color.DarkGray)
         ) {
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = Color.LightGray),
                 value = weight.value,
                 label = { Text("Weight (in kg)", color = Color.White) },
                 keyboardOptions = KeyboardOptions(
@@ -76,7 +80,11 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
                 onValueChange = { weight.value = it }
             )
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = Color.LightGray),
                 value = bodyFat.value,
                 label = { Text("Body Fat Percentage", color = Color.White) },
                 keyboardOptions = KeyboardOptions(
@@ -86,7 +94,11 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
                 onValueChange = { bodyFat.value = it }
             )
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = Color.LightGray),
                 value = muscleMass.value,
                 label = { Text("Muscle Mass (in kg)", color = Color.White) },
                 keyboardOptions = KeyboardOptions(
@@ -113,6 +125,7 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
         }
 
         }
+            //Spacer(modifier = Modifier.height(1.dp))
         BottomButtons(navController)
         }
     }
