@@ -1,132 +1,123 @@
 package com.example.andrifitness
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.net.Uri
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.navigation.NavHostController
-import kotlin.math.abs
-import kotlin.system.exitProcess
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ExercisesLayout(navController: NavHostController) {
     val constraints = ConstraintSet {
         val topButtons = createRefFor("topButtons")
-        val pageName = createRefFor("pageName")
-        val workouts = createRefFor("workouts")
+        val exercises = createRefFor("exercises")
         val bottomButtons = createRefFor("bottomButtons")
 
         constrain(topButtons) {
             top.linkTo(parent.top)
         }
-        constrain(pageName) {
+        constrain(exercises) {
             top.linkTo(topButtons.bottom)
         }
-        constrain(workouts) {
-            top.linkTo(pageName.bottom)
-        }
         constrain(bottomButtons) {
-            top.linkTo(workouts.bottom)
+            bottom.linkTo(parent.bottom)
         }
     }
     var selectedCategory by remember { mutableStateOf(ExerciseCategory.UPPER_BODY) }
     ConstraintLayout(
-
         constraints, modifier = Modifier
             .fillMaxSize()
             .background(Color.DarkGray)
-            .padding(10.dp)
     ) {
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.DarkGray)
                 .padding(10.dp)
-                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
         ) {
-            Column(
-
+            Row(
+                horizontalArrangement = Arrangement.Start,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .fillMaxHeight(.1f)
+                    .layoutId("topButtons")
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.Start,
-                    modifier = Modifier.fillMaxWidth()
+                Button(
+                    onClick = { selectedCategory = ExerciseCategory.UPPER_BODY },
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(4.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = if (selectedCategory == ExerciseCategory.UPPER_BODY) Color.Gray else Color.LightGray
+                    )
                 ) {
-                    Button(
-                        onClick = { selectedCategory = ExerciseCategory.UPPER_BODY },
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(4.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = if (selectedCategory == ExerciseCategory.UPPER_BODY) Color.Gray else Color.LightGray
-                        )
-                    ) {
-                        Text(text = "Upper Body")
-                    }
-                    Button(
-                        onClick = { selectedCategory = ExerciseCategory.LOWER_BODY },
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(4.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = if (selectedCategory == ExerciseCategory.LOWER_BODY) Color.Gray else Color.LightGray
-                        )
-                    ) {
-                        Text(text = "Lower Body")
-                    }
-                    Button(
-                        onClick = { selectedCategory = ExerciseCategory.FULL_BODY },
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(4.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = if (selectedCategory == ExerciseCategory.FULL_BODY) Color.Gray else Color.LightGray
-                        )
-                    ) {
-                        Text(text = "Full Body")
-                    }
-                    Button(
-                        onClick = { selectedCategory = ExerciseCategory.ABS },
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(4.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = if (selectedCategory == ExerciseCategory.ABS) Color.Gray else Color.LightGray
-                        )
-                    ) {
-                        Text(text = "Abs")
-                    }
+                    Text(text = "Upper Body")
                 }
-                Spacer(modifier = Modifier.height(20.dp))
-                ExerciseButton(selectedCategory, navController)
-
-                BottomButtons(navController)
+                Button(
+                    onClick = { selectedCategory = ExerciseCategory.LOWER_BODY },
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(4.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = if (selectedCategory == ExerciseCategory.LOWER_BODY) Color.Gray else Color.LightGray
+                    )
+                ) {
+                    Text(text = "Lower Body")
+                }
+                Button(
+                    onClick = { selectedCategory = ExerciseCategory.FULL_BODY },
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(4.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = if (selectedCategory == ExerciseCategory.FULL_BODY) Color.Gray else Color.LightGray
+                    )
+                ) {
+                    Text(text = "Full Body")
+                }
+                Button(
+                    onClick = { selectedCategory = ExerciseCategory.ABS },
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(4.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = if (selectedCategory == ExerciseCategory.ABS) Color.Gray else Color.LightGray
+                    )
+                ) {
+                    Text(text = "Abs")
+                }
             }
-
+            Spacer(modifier = Modifier.height(16.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(.9f)
+                    .layoutId("exercises")
+                    .verticalScroll(rememberScrollState())
+            ) {
+                ExerciseButton(selectedCategory)
+            }
         }
-
+        BottomButtons(navController)
     }
 }
 
 data class Exercise(val name: String, val description: String)
 
 @Composable
-fun ExerciseButton(category: ExerciseCategory, navController: NavHostController) {
+fun ExerciseButton(category: ExerciseCategory) {
     val exercises = when (category) {
         ExerciseCategory.UPPER_BODY -> listOf(
             Exercise("Bench Press", "3 sets of 10 reps"),
@@ -184,14 +175,14 @@ fun ExerciseButton(category: ExerciseCategory, navController: NavHostController)
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
     ) {
         exercises.forEach { exercise ->
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(7.5.dp)
+                    .padding(top = 7.5.dp)
             ){
                     Text(text = exercise.name, color = Color.White)
                     Text(text = exercise.description, color = Color.White)
@@ -203,25 +194,16 @@ fun ExerciseButton(category: ExerciseCategory, navController: NavHostController)
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)) {
-//            Button(
-//                onClick = { navController.navigate(ApplicationScreens.WorkoutCreationApplicationScreen.route) },
-//
-//            ) {
-//                Text(text = "Workout")
-//            }
+                .padding(top = 8.dp)) {
             val uriHandler = LocalUriHandler.current
             Button(
                 onClick = {
                     if (ExerciseCategory.values().any{it.title =="Upper Body" }){
                         uriHandler.openUri("https://youtube.com/clip/UgkxR0UPw5BfhtOWzHyywYtoaOD_ZcdoAd1I")
-                        //exitProcess(1)
                     }else if (ExerciseCategory.values().any{it.title =="Lower Body" }){
                         uriHandler.openUri("https://youtube.com/clip/UgkxR0UPw5BfhtOWzHyywYtoaOD_ZcdoAd1I")
-                        //exitProcess(1)
                     }else if (ExerciseCategory.values().any{it.title =="Full Body" }){
                     uriHandler.openUri("https://youtube.com/clip/UgkxmyrPhmXQt4GpsJRRDgrwMH_lMa2iLk0j")
-                        //exitProcess(1)
                     }else if (ExerciseCategory.values().any{it.title =="Abs" }){
                         uriHandler.openUri("https://youtube.com/clip/Ugkxb0tboxZVnBIoqPq6rpAS00x5Sl3mJb-7")
                     }else{
@@ -232,7 +214,6 @@ fun ExerciseButton(category: ExerciseCategory, navController: NavHostController)
                 Text(text = "Video")
             }
         }
-
     }
 }
 
