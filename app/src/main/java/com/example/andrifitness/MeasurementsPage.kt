@@ -23,9 +23,9 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun MeasurementsLayout(navController: NavHostController, measurementViewModel: MeasurementViewModel) {
-    val weight = remember { mutableStateOf("") }
-    val bodyFat = remember { mutableStateOf("") }
-    val muscleMass = remember { mutableStateOf("") }
+    val weight = remember { mutableStateOf(0f) }
+    val bodyFat = remember { mutableStateOf(0f) }
+    val muscleMass = remember { mutableStateOf(0f) }
     val constraints = ConstraintSet {
         val measurementsArea = createRefFor("measurementsArea")
         val bottomButtons = createRefFor("bottomButtons")
@@ -57,13 +57,13 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.LightGray
                 ),
-                value = weight.value,
+                value = weight.value.toString(),
                 label = { Text("Weight", color = Color.Black) },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
                 ),
-                onValueChange = { weight.value = it }
+                onValueChange = { weight.value = it.toFloatOrNull() ?: 0f }
             )
 
             OutlinedTextField(
@@ -73,13 +73,13 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.LightGray
                 ),
-                value = bodyFat.value,
+                value = bodyFat.value.toString(),
                 label = { Text("Body Fat Percentage", color = Color.Black) },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
                 ),
-                onValueChange = { bodyFat.value = it }
+                onValueChange = { bodyFat.value = it.toFloatOrNull() ?: 0f }
             )
 
             OutlinedTextField(
@@ -89,28 +89,29 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.LightGray
                 ),
-                value = muscleMass.value,
+                value = muscleMass.value.toString(),
                 label = { Text("Muscle Mass", color = Color.Black) },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Done
                 ),
-                onValueChange = { muscleMass.value = it }
+                onValueChange = { muscleMass.value = it.toFloatOrNull() ?: 0f }
             )
 
             Button(
                 onClick = {navController.navigate(ApplicationScreens.MeasurementHistoryScreen.route)
+                    if (weight.value is Float )
                     measurementViewModel.addMeasurement(
-                        weight.value.toFloat(),
-                        bodyFat.value.toFloat(),
-                        muscleMass.value.toFloat()
+                        weight.value,
+                        bodyFat.value,
+                        muscleMass.value
                     )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
                     .height(50.dp),
-                enabled = weight.value.isNotEmpty() && bodyFat.value.isNotEmpty() && muscleMass.value.isNotEmpty()
+                enabled = weight.value != 0f && bodyFat.value != 0f && muscleMass.value != 0f
             ) {
                Text(text = "Add Measurement")
             }
