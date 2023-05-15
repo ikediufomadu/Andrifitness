@@ -237,7 +237,8 @@ fun WorkoutProgress(navController: NavController, viewModel: WorkoutProgressView
             .fillMaxSize()
     ) {
         Column{
-            Text(text = "Workout Progress", style = MaterialTheme.typography.h4)
+            Text(text = "Workout Progress",
+                style = MaterialTheme.typography.h4, color = Color.White)
 
             LazyColumn {
                 items(workoutEntries) { entry ->
@@ -247,11 +248,15 @@ fun WorkoutProgress(navController: NavController, viewModel: WorkoutProgressView
 
             val totalDuration = workoutEntries.sumOf { it.duration }
             val totalCaloriesBurned = workoutEntries.sumOf { it.caloriesBurned }
-            Text(text = "Total Duration: $totalDuration mins")
-            Text(text = "Total Calories Burned: $totalCaloriesBurned")
+            Text(text = "Total Duration: $totalDuration mins", color = Color.White)
+            Text(text = "Total Calories Burned: $totalCaloriesBurned", color = Color.White)
 
-            Button(onClick = { navController.popBackStack() }) {
-                Text(text = "Back")
+            Button(onClick = { navController.popBackStack() },
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = WButtonBackgroundColor,
+                    contentColor = WButtonContentColor
+                ),) {
+                Text(text = "Back", color = Color.White)
             }
         }
     }
