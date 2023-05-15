@@ -101,11 +101,11 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
             Button(
                 onClick = {navController.navigate(ApplicationScreens.MeasurementHistoryScreen.route)
                     if (weight.value is Float )
-                    measurementViewModel.addMeasurement(
-                        weight.value,
-                        bodyFat.value,
-                        muscleMass.value
-                    )
+                        measurementViewModel.addMeasurement(
+                            weight.value,
+                            bodyFat.value,
+                            muscleMass.value
+                        )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -113,7 +113,7 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
                     .height(50.dp),
                 enabled = weight.value != 0f && bodyFat.value != 0f && muscleMass.value != 0f
             ) {
-               Text(text = "Add Measurement")
+                Text(text = "Add Measurement")
             }
         }
         BottomButtons(navController)
@@ -127,7 +127,6 @@ fun MeasurementHistory(navController: NavHostController, measurementViewModel: M
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.DarkGray)
             .padding(16.dp)
     ) {
         Text(
@@ -151,9 +150,9 @@ fun MeasurementHistory(navController: NavHostController, measurementViewModel: M
         }
         Button(
             onClick = { navController.popBackStack()},
-            modifier = Modifier.padding(top = 16.dp),
+            modifier = Modifier.padding(top = 16.dp)
         ) {
-            Text("Back to Profile", color = Color.Black)
+            Text("Back to Profile")
         }
     }
 }
