@@ -88,7 +88,7 @@ fun LogsPage(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(.60f)
-                .layoutId("workouts")
+                .layoutId("Logs")
         ) {
             DisplayCards(navController)
         }
