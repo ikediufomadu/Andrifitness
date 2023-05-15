@@ -66,7 +66,11 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
                 .background(Color.DarkGray)
         ) {
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = Color.LightGray),
                 value = weight.value,
 
                 label = { Text("Weight (in kg)", color = Color.White) },
@@ -78,7 +82,11 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
                 onValueChange = { weight.value = it }
             )
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = Color.LightGray),
                 value = bodyFat.value,
                 label = { Text("Body Fat Percentage", color = Color.White) },
                 keyboardOptions = KeyboardOptions(
@@ -88,7 +96,11 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
                 onValueChange = { bodyFat.value = it }
             )
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = Color.LightGray),
                 value = muscleMass.value,
 
                 label = { Text("Muscle Mass (in kg)", color = Color.White) },
@@ -119,6 +131,7 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
         }
 
         }
+            //Spacer(modifier = Modifier.height(1.dp))
         BottomButtons(navController)
         }
     }

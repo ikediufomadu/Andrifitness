@@ -42,7 +42,9 @@ fun Navigation() {
             PreDesignedWorkoutLayout(navController = navController)
         }
         composable(route =ApplicationScreens.UserProfileScreen.route){
+
             UserProfileLayout(navController = navController, userProfileViewModel = userProfileViewModel)
+
         }
         composable(route = ApplicationScreens.UserProfileForm.route){
             UserProfileForm(navController = navController, userProfileViewModel = userProfileViewModel)
