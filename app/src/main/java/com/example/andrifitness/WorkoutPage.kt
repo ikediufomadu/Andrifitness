@@ -2,6 +2,7 @@ package com.example.andrifitness
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -10,9 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.text.input.KeyboardType
+
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 
@@ -109,8 +112,13 @@ fun WorkoutLayout(navController: NavController) {
         ) {
             DisplayCards(navController)
         }
+        Button(onClick = { navController.navigate(ApplicationScreens.WorkoutProgress.route) }) {
+            Text(text = "Track Workout Progress")
+        }
+
         BottomButtons(navController)
     }
+
 }
 
 @Composable

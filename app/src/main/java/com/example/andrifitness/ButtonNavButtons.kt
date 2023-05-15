@@ -76,5 +76,17 @@ fun BottomButtons(navController: NavController) {
         ) {
             Text(text = "Measurements", fontSize = ButtonFontSizes)
         }
+        Button(
+            onClick = { navController.navigate(ApplicationScreens.UserProfileScreen.route)},
+            modifier = Modifier
+            .requiredHeight(ButtonRequiredHeight)
+            .requiredWidth(ButtonRequiredWidth),
+            colors = ButtonDefaults.buttonColors(
+            backgroundColor = ButtonBackgroundColor,
+            contentColor = ButtonContentColor
+        )
+        ) {
+        Text(text = "User Profile", fontSize = ButtonFontSizes)
+         }
     }
 }
