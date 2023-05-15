@@ -136,7 +136,7 @@ fun DisplayCards(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 5.dp, bottom = 5.dp),
-                backgroundColor = Color.Black,
+                backgroundColor = Color.LightGray,
                 elevation = 4.dp,
                 shape = RoundedCornerShape(8.dp)
             ) {
