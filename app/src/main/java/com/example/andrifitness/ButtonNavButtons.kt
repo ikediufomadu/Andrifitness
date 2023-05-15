@@ -19,9 +19,8 @@ fun BottomButtons(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.10f)
-            .layoutId("bottomButtons")
-        ,
+            .fillMaxHeight(0.1f)
+            .layoutId("bottomButtons"),
 
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
@@ -76,5 +75,18 @@ fun BottomButtons(navController: NavController) {
         ) {
             Text(text = "Measurements", fontSize = ButtonFontSizes)
         }
+        Button(
+            onClick = { navController.navigate(ApplicationScreens.UserProfileScreen.route)},
+            modifier = Modifier
+                .requiredHeight(ButtonRequiredHeight)
+                .requiredWidth(ButtonRequiredWidth),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = ButtonBackgroundColor,
+                contentColor = ButtonContentColor
+            )
+        ) {
+            Text(text = "User Profile", fontSize = ButtonFontSizes)
+        }
+
     }
 }
