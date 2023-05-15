@@ -27,7 +27,6 @@ import androidx.navigation.NavController
 
 @Composable
 fun LogsCreationPage(navController: NavHostController) {
-
     val constraints = ConstraintSet {
         val topButtons = createRefFor("topButtons")
         val pageName = createRefFor("pageName")
@@ -57,7 +56,7 @@ fun LogsCreationPage(navController: NavHostController) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.05f)
+                .fillMaxHeight(0.5f)
                 .layoutId("topButtons"),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -112,7 +111,7 @@ fun LogsCreationPage(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(.80f)
+                .fillMaxHeight(.75f)
                 .layoutId("createdLogs")
         ) {
             DisplayCardsLog(navController)
@@ -120,7 +119,6 @@ fun LogsCreationPage(navController: NavHostController) {
         BottomButtons(navController)
     }
 }
-
 
 @Composable
 fun DisplayCardsLog(navController: NavController) {
@@ -136,7 +134,7 @@ fun DisplayCardsLog(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 5.dp, bottom = 5.dp),
-                backgroundColor = Color.Black,
+                backgroundColor = Color.LightGray,
                 elevation = 4.dp,
                 shape = RoundedCornerShape(8.dp)
             ) {
@@ -146,7 +144,7 @@ fun DisplayCardsLog(navController: NavController) {
                         .fillMaxWidth()
                 ) {
                     Text(
-                        text = "Name: " + card.title,
+                        text = "Name: " + card.logTitle,
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp,
                         color = Color.White

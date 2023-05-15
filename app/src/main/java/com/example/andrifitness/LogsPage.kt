@@ -67,7 +67,7 @@ fun LogsPage(navController: NavController) {
                 .fillMaxHeight(.85f)
                 .layoutId("Logs")
         ) {
-            DisplayCards(navController)
+            DisplayCardsLog(navController)
         }
 
         BottomButtons(navController)

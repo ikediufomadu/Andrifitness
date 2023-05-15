@@ -16,20 +16,20 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun NewLogsPage(navController: NavHostController) {
-    var workoutName by remember { mutableStateOf("") }
+    var logName by remember { mutableStateOf("") }
     var selectedDay by remember { mutableStateOf("") }
-    var workoutNotes by remember { mutableStateOf("") }
+    var logNotes by remember { mutableStateOf("") }
     var showDialog by remember { mutableStateOf(false) }
     var createCard by remember { mutableStateOf(false) }
 
     val constraints = ConstraintSet {
         val topButtons = createRefFor("topButtons")
-        val newWorkoutInfo = createRefFor("newLogsInfo")
+        val newLogsInfo = createRefFor("newLogsInfo")
 
         constrain(topButtons) {
             top.linkTo(parent.top)
         }
-        constrain(newWorkoutInfo) {
+        constrain(newLogsInfo) {
             top.linkTo(topButtons.bottom)
         }
     }
@@ -72,7 +72,7 @@ fun NewLogsPage(navController: NavHostController) {
             Button(
                 onClick = {
                     // Passes parameters user added to store new workout in a data structure
-                    if (workoutName.isNotEmpty() && selectedDay.isNotEmpty()) {
+                    if (logName.isNotEmpty() && selectedDay.isNotEmpty()) {
                         createCard = true
                     }
                     else {
@@ -98,29 +98,29 @@ fun NewLogsPage(navController: NavHostController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.95f)
-                .layoutId("newWorkoutInfo"),
+                .layoutId("newLogsInfo"),
             verticalArrangement = Arrangement.Top
         ) {
             val days = listOf("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
             var expanded by remember { mutableStateOf(false) }
             TextField(
-                value = workoutName,
-                onValueChange = { workoutName = it },
-                label = { Text("Name") },
+                value = logName,
+                onValueChange = { logName = it },
+                label = { Text("What did you do?") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
                 colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.LightGray)
+                backgroundColor = Color.LightGray)
             )
             Spacer(modifier = Modifier.height(16.dp))
-            Text("Selected day: $selectedDay", color = Color.White)
+            Text("Select a day: $selectedDay", color = Color.White)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { expanded = !expanded }
                     .background(Color.LightGray)
-                    .padding(top = 24.dp)
+                    .padding(top = 24.dp),
             ) {
                 Text(
                     text = selectedDay.ifEmpty { "Select a day" }
@@ -142,8 +142,8 @@ fun NewLogsPage(navController: NavHostController) {
             }
             Spacer(modifier = Modifier.height(16.dp))
             TextField(
-                value = workoutNotes,
-                onValueChange = { workoutNotes = it },
+                value = logNotes,
+                onValueChange = { logNotes = it },
                 label = { Text("Notes:") },
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -167,14 +167,14 @@ fun NewLogsPage(navController: NavHostController) {
             }
             if (createCard) {
                 createCard = false
-                BuildCard(title = workoutName, day = selectedDay, notes = workoutNotes)
+                BuildCardLog(logTitle = logName, day = selectedDay, notes = logNotes)
                 navController.navigate(ApplicationScreens.LogsCreationApplicationScreen.route)
             }
         }
     }
 }
 data class CardDataLog(
-    val title: String,
+    val logTitle: String,
     val day: String,
     val notes: String
 )
@@ -185,7 +185,7 @@ fun AddCardToListLog(cardDataLog: CardDataLog) {
     CardListLog.add(cardDataLog)
 }
 @Composable
-fun BuildCardLog(title: String, day: String, notes: String = "") {
-    val card = CardDataLog (title = title, day = day, notes = notes)
+fun BuildCardLog(logTitle: String, day: String, notes: String = "") {
+    val card = CardDataLog (logTitle = logTitle, day = day, notes = notes)
     AddCardToListLog(cardDataLog = card)
 }
