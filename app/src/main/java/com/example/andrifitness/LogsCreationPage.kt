@@ -30,7 +30,7 @@ fun LogsCreationPage(navController: NavHostController) {
     val constraints = ConstraintSet {
         val topButtons = createRefFor("topButtons")
         val pageName = createRefFor("pageName")
-        val createdLog = createRefFor("createdLog")
+        val createdLogs = createRefFor("createdLogs")
         val bottomButtons = createRefFor("bottomButtons")
 
         constrain(topButtons) {
@@ -39,11 +39,11 @@ fun LogsCreationPage(navController: NavHostController) {
         constrain(pageName) {
             top.linkTo(topButtons.bottom)
         }
-        constrain(createdLog) {
+        constrain(createdLogs) {
             top.linkTo(pageName.bottom)
         }
         constrain(bottomButtons) {
-            top.linkTo(createdLog.bottom)
+            top.linkTo(createdLogs.bottom)
         }
     }
     ConstraintLayout(
@@ -56,7 +56,7 @@ fun LogsCreationPage(navController: NavHostController) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.5f)
+                .fillMaxHeight(0.05f)
                 .layoutId("topButtons"),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -80,7 +80,7 @@ fun LogsCreationPage(navController: NavHostController) {
             }
             Button(
                 onClick = {
-                    navController.navigate(ApplicationScreens.WorkoutApplicationScreen.route)
+                    navController.navigate(ApplicationScreens.LogsApplicationScreen.route)
                 },
                 modifier = Modifier
                     .requiredHeight(WButtonRequiredHeight)
@@ -111,7 +111,7 @@ fun LogsCreationPage(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(.75f)
+                .fillMaxHeight(.80f)
                 .layoutId("createdLogs")
         ) {
             DisplayCardsLog(navController)
@@ -144,7 +144,7 @@ fun DisplayCardsLog(navController: NavController) {
                         .fillMaxWidth()
                 ) {
                     Text(
-                        text = "Name: " + card.logTitle,
+                        text = "Log: " + card.logTitle,
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp,
                         color = Color.White
