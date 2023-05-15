@@ -203,6 +203,23 @@ fun TimerScreen() {
         }
     }
 }
+data class WorkoutEntry(
+    val duration: Int,
+    val caloriesBurned: Int
+)
+
+class WorkoutProgressViewModel : ViewModel() {
+    private val _workoutEntries = mutableStateListOf<WorkoutEntry>()
+    val workoutEntries: List<WorkoutEntry> get() = _workoutEntries
+
+    fun addWorkoutEntry(entry: WorkoutEntry) {
+        _workoutEntries.add(entry)
+    }
+}
+@Composable
+fun WorkoutProgress(navController: NavController, viewModel: WorkoutProgressViewModel ) {
+    val workoutEntries = viewModel.workoutEntries
+}
 
 private fun formatTime(timeInSeconds: Int): String {
     val minutes = timeInSeconds / 60

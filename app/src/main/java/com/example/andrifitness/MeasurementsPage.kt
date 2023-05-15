@@ -102,7 +102,7 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
 
             Button(
                     onClick = {
-                        viewModel.addMeasurement(
+                        measurementViewModel.addMeasurement(
                             weight.value.toFloatOrNull(),
                             bodyFat.value.toFloatOrNull(),
                             muscleMass.value.toFloatOrNull()
