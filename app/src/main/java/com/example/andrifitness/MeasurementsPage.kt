@@ -25,7 +25,7 @@ import java.util.*
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementViewModel) {
+fun MeasurementsLayout(navController: NavHostController, measurementViewModel: MeasurementViewModel) {
     val scaffoldState = rememberScaffoldState()
     val weight = remember { mutableStateOf("") }
     val bodyFat = remember { mutableStateOf("") }
@@ -72,7 +72,9 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.LightGray),
                 value = weight.value,
+
                 label = { Text("Weight (in kg)", color = Color.White) },
+
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
@@ -100,21 +102,25 @@ fun MeasurementsLayout(navController: NavHostController, viewModel: MeasurementV
                 colors = TextFieldDefaults.textFieldColors(
                     backgroundColor = Color.LightGray),
                 value = muscleMass.value,
+
                 label = { Text("Muscle Mass (in kg)", color = Color.White) },
+
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Done
                 ),
                 onValueChange = { muscleMass.value = it }
             )
+
             Button(
                     onClick = {
-                        viewModel.addMeasurement(
+                        measurementViewModel.addMeasurement(
                             weight.value.toFloatOrNull(),
                             bodyFat.value.toFloatOrNull(),
                             muscleMass.value.toFloatOrNull()
                         )
                     },
+
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)

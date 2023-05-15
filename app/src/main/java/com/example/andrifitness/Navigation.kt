@@ -10,6 +10,9 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
+    val measurementViewModel = viewModel<MeasurementViewModel>()
+    val userProfileViewModel = viewModel<UserProfileViewModel>()
+    val workoutProgressViewModel = viewModel<WorkoutProgressViewModel>()
     NavHost(navController = navController, startDestination = ApplicationScreens.WorkoutApplicationScreen.route) {
         composable(route = ApplicationScreens.WorkoutApplicationScreen.route) {
             WorkoutLayout(navController = navController)
@@ -27,8 +30,7 @@ fun Navigation() {
             LogsCreationPage(navController = navController)
         }
         composable(route = ApplicationScreens.MeasurementsApplicationScreen.route) {
-            val viewModel = viewModel<MeasurementViewModel>()
-            MeasurementsLayout(navController = navController, viewModel = viewModel)
+            MeasurementsLayout(navController = navController, measurementViewModel = measurementViewModel)
         }
         composable(route = ApplicationScreens.NewWorkoutScreen.route) {
             NewWorkoutLayout(navController = navController)
@@ -40,14 +42,15 @@ fun Navigation() {
             PreDesignedWorkoutLayout(navController = navController)
         }
         composable(route =ApplicationScreens.UserProfileScreen.route){
-            UserProfileLayout(navController = navController, userProfileViewModel = viewModel())
+
+            UserProfileLayout(navController = navController, userProfileViewModel = userProfileViewModel)
+
         }
         composable(route = ApplicationScreens.UserProfileForm.route){
-            UserProfileForm(navController = navController, userProfileViewModel = viewModel())
+            UserProfileForm(navController = navController, userProfileViewModel = userProfileViewModel)
         }
-        composable(route = ApplicationScreens.MeasuremntHistoryScreen.route){
-            val viewModel = viewModel<MeasurementViewModel>()
-            MeasurementHistory(navController = navController, viewModel = viewModel)
+        composable(route = ApplicationScreens.WorkoutProgress.route){
+            WorkoutProgress(navController = navController, viewModel = workoutProgressViewModel )
         }
     }
 }

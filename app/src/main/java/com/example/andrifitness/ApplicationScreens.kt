@@ -7,13 +7,16 @@ sealed class ApplicationScreens(val route: String) {
     object ExercisesApplicationScreen : ApplicationScreens(route = "ExercisesScreen")
     object LogsApplicationScreen : ApplicationScreens(route = "LogsScreen")
     object MeasurementsApplicationScreen : ApplicationScreens(route = "MeasurementsScreen")
-    object SettingsApplicationScreen : ApplicationScreens(route = "SettingsScreen")
     object NewWorkoutScreen : ApplicationScreens(route = "NewWorkoutScreen")
     object NewLogsScreen : ApplicationScreens(route = "NewLogsScreen")
     object PreDesignedWorkoutScreen : ApplicationScreens(route = "PreDesignedWorkoutScreen")
     object UserProfileScreen: ApplicationScreens(route = "UserProfileScreen")
     object UserProfileForm: ApplicationScreens(route = "UserProfileForm")
+
+    object WorkoutProgress: ApplicationScreens(route = "WorkoutProgress")
+
     object MeasuremntHistoryScreen: ApplicationScreens(route = "MeasurementHistoryScreen")
+
 
 }
 
