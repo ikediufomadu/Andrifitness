@@ -97,7 +97,7 @@ fun WorkoutLayout(navController: NavController) {
         ) {
             Text(text = "Workouts",
                 fontSize = WTextSize,
-                color = WTextColor
+                color = Color.White
             )
         }
         TimerScreen()

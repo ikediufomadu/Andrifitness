@@ -72,6 +72,7 @@ fun LogsPage(navController: NavController) {
                 )
             }
         }
+
         Row (
             modifier = Modifier
                 .fillMaxWidth()
@@ -79,11 +80,12 @@ fun LogsPage(navController: NavController) {
                 .layoutId("pageName"),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "Logs",
+            Text(text = "Workouts",
                 fontSize = WTextSize,
-                color = WTextColor
+                color = Color.White
             )
         }
+        TimerScreen()
         Column(
             modifier = Modifier
                 .fillMaxWidth()

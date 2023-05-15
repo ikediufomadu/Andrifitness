@@ -81,7 +81,7 @@ fun LogsCreationPage(navController: NavHostController) {
             }
             Button(
                 onClick = {
-                    navController.navigate(ApplicationScreens.LogsApplicationScreen.route)
+                    navController.navigate(ApplicationScreens.WorkoutApplicationScreen.route)
                 },
                 modifier = Modifier
                     .requiredHeight(WButtonRequiredHeight)
@@ -148,10 +148,19 @@ fun DisplayCardsLog(navController: NavController) {
                     Text(
                         text = "Name: " + card.title,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp
+                        fontSize = 20.sp,
+                        color = Color.White
                     )
-                    Text(text = "Day: " + card.day, fontSize = 16.sp)
-                    Text(text = "Notes: " + card.notes, fontSize = 16.sp)
+                    Text(
+                        text = "Day: " + card.day,
+                        fontSize = 16.sp,
+                        color = Color.White
+                    )
+                    Text(
+                        text = "Notes: " + card.notes,
+                        fontSize = 16.sp,
+                        color = Color.White
+                    )
                 }
                 if (navController.currentDestination?.route == ApplicationScreens.LogsCreationApplicationScreen.route) {
                     val context = LocalContext.current
