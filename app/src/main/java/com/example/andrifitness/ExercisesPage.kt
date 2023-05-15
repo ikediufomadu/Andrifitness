@@ -114,6 +114,7 @@ fun ExercisesLayout(navController: NavHostController) {
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 ExerciseButton(selectedCategory, navController)
+
                 BottomButtons(navController)
             }
 
