@@ -112,7 +112,7 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
             )
 
             Button(
-                    onClick = {
+                    onClick = {navController.navigate(ApplicationScreens.MeasurementHistoryScreen.route)
                         measurementViewModel.addMeasurement(
                             weight.value.toFloatOrNull(),
                             bodyFat.value.toFloatOrNull(),
@@ -126,9 +126,8 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
                 .height(50.dp),
             enabled = weight.value.isNotEmpty() && bodyFat.value.isNotEmpty() && muscleMass.value.isNotEmpty()
             ) {
-            Text(text = "Add Measurement", color = Color.Black)
+           Text(text = "Add Measurement")
         }
-
         }
             //Spacer(modifier = Modifier.height(1.dp))
         BottomButtons(navController)
@@ -138,8 +137,8 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
 }
 
 @Composable
-fun MeasurementHistory(navController: NavHostController, viewModel: MeasurementViewModel) {
-    val measurements = viewModel.measurementList.value ?: emptyList()
+fun MeasurementHistory(navController: NavHostController, measurementViewModel: MeasurementViewModel) {
+    val measurements = measurementViewModel.measurementList.value ?: emptyList()
 
     Column(
         modifier = Modifier

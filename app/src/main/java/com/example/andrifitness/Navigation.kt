@@ -53,6 +53,9 @@ fun Navigation() {
         composable(route = ApplicationScreens.WorkoutProgress.route){
             WorkoutProgress(navController = navController, workoutProgressViewModel = workoutProgressViewModel)
         }
+        composable(route = ApplicationScreens.MeasurementHistoryScreen.route){
+            MeasurementHistory(navController = navController, measurementViewModel = MeasurementViewModel() )
+        }
     }
 }
 
