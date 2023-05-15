@@ -209,7 +209,11 @@ fun ExerciseButton(category: ExerciseCategory) {
                     }else{
                         println("Empty Video")
                     }
-                }
+                },
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = WButtonBackgroundColor,
+                    contentColor = WButtonContentColor
+                )
             ) {
                 Text(text = "Video")
             }

@@ -1,5 +1,6 @@
 package com.example.andrifitness
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -7,11 +8,13 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -20,6 +23,8 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import kotlin.math.sqrt
 
 @Composable
 fun MeasurementsLayout(navController: NavHostController, measurementViewModel: MeasurementViewModel) {
@@ -99,19 +104,14 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
             )
 
             Button(
-                onClick = {navController.navigate(ApplicationScreens.MeasurementHistoryScreen.route)
-                    if (weight.value is Float )
-                        measurementViewModel.addMeasurement(
-                            weight.value,
-                            bodyFat.value,
-                            muscleMass.value
-                        )
+                onClick = {navController.navigate(ApplicationScreens.MeasurementHistoryScreen.route + "/${weight.value}/${bodyFat.value}/${muscleMass.value}")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
                     .height(50.dp),
-                enabled = weight.value != 0f && bodyFat.value != 0f && muscleMass.value != 0f
+                //TODO sdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfdsfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd
+//                enabled = weight.value != 0f && bodyFat.value != 0f && muscleMass.value != 0f
             ) {
                 Text(text = "Add Measurement")
             }
@@ -121,12 +121,27 @@ fun MeasurementsLayout(navController: NavHostController, measurementViewModel: M
 }
 
 @Composable
-fun MeasurementHistory(navController: NavHostController, measurementViewModel: MeasurementViewModel) {
+fun MeasurementHistory(
+    navController: NavHostController,
+    measurementViewModel: MeasurementViewModel
+) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val arguments = navBackStackEntry?.arguments
+
+    val weight = arguments?.getFloat("weight")
+    val bodyFat = arguments?.getFloat("bodyFat")
+    val muscleMass = arguments?.getFloat("muscleMass")
     val measurements = measurementViewModel.measurementList.value ?: emptyList()
 
+    measurementViewModel.addMeasurement(
+        weight,
+        bodyFat,
+        muscleMass
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.DarkGray)
             .padding(16.dp)
     ) {
         Text(
@@ -142,7 +157,7 @@ fun MeasurementHistory(navController: NavHostController, measurementViewModel: M
             ) {
                 itemsIndexed(measurements) { index, measurement ->
                     Text(
-                        text = "${index + 1} Height=${measurement.height}cm, Weight=${measurement.weight}kg, Body Fat=${measurement.bodyFat}%, Muscle Mass=${measurement.muscleMass}%",
+                        text = "Index ${index + 1}- Height: ${measurement.height} in, Weight: ${measurement.weight} kg, Body Fat=${measurement.bodyFat}%, Muscle Mass=${measurement.muscleMass}%, BMI: " + BMICalculator(measurement.weight, measurement.height),
                         modifier = Modifier.padding(vertical = 8.dp)
                     )
                 }
@@ -150,13 +165,19 @@ fun MeasurementHistory(navController: NavHostController, measurementViewModel: M
         }
         Button(
             onClick = { navController.popBackStack()},
-            modifier = Modifier.padding(top = 16.dp)
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = WButtonBackgroundColor,
+                contentColor = WButtonContentColor
+            )
         ) {
             Text("Back to Profile")
         }
     }
 }
 
+fun BMICalculator(weight: Float, height: Float):Float {
+    return (weight/sqrt(((height/100).toDouble()))).toFloat()
+}
 data class Measurement(
     val height: Float,
     val weight: Float,

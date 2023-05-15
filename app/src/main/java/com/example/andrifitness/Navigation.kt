@@ -3,9 +3,11 @@ package com.example.andrifitness
 import PreDesignedWorkoutLayout
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 
 @Composable
 fun Navigation() {
@@ -53,8 +55,17 @@ fun Navigation() {
         composable(route = ApplicationScreens.WorkoutProgress.route){
             WorkoutProgress(navController = navController, workoutProgressViewModel = workoutProgressViewModel)
         }
-        composable(route = ApplicationScreens.MeasurementHistoryScreen.route){
-            MeasurementHistory(navController = navController, measurementViewModel = MeasurementViewModel() )
+        composable(route = "MeasurementHistory/{weight}/{bodyFat}/{muscleMass}",
+            arguments = listOf(
+                navArgument("weight") { type = NavType.FloatType },
+                navArgument("bodyFat") { type = NavType.FloatType },
+                navArgument("muscleMass") { type = NavType.FloatType }
+            )
+        ){
+            MeasurementHistory(
+                navController = navController,
+                measurementViewModel = MeasurementViewModel()
+            )
         }
     }
 }
