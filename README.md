@@ -30,7 +30,7 @@ How to Contribute
 If you would like to contribute to AndriFitness, we welcome your input and feedback. Please feel free to submit bug reports, feature requests, or code contributions by emailing us at [iufoma1@students.towson.edu].
 
 License
-This project is licensed under the BSD-style license. See the LICENSE.md file for more details.
+This project is licensed under the BSD-style license . See the LICENSE.md file for more details.
 
 Contact
 If you have any questions or comments about AndriFitness, please feel free to contact us at [iufoma1@students.towson.edu]. We appreciate your interest in this application and welcome your feedback!
